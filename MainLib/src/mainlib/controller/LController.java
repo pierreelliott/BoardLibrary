@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mainlib.model.LModel;
+import mainlib.model.LPiece;
+import mainlib.model.LPosition;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,19 +29,22 @@ public class LController implements Initializable {
     private int GRID_SIZE_COL;
 
     private int cellPadding = 0;
+    private Color cellDefaultColor = Color.WHITE;
+
+    private Rectangle[][] rectangles;
 
     public LController(LModel lModel) throws Exception {
         if(lModel.getBoard() == null){
             throw new Exception("Board not initialized on Model");
         }
         this.lModel = lModel;
+        GRID_SIZE_ROW = lModel.getBoard().getHeight();
+        GRID_SIZE_COL = lModel.getBoard().getWidth();
+        this.rectangles = new Rectangle[GRID_SIZE_ROW][GRID_SIZE_COL];
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        GRID_SIZE_ROW = lModel.getBoard().getHeight();
-        GRID_SIZE_COL = lModel.getBoard().getWidth();
-
         ColumnConstraints colDefault = new ColumnConstraints(0,0,Double.MAX_VALUE, Priority.ALWAYS, HPos.CENTER, true);
         RowConstraints rowDefault = new RowConstraints(0,0,Double.MAX_VALUE, Priority.ALWAYS, VPos.CENTER, true);
         for (int row = 0; row < GRID_SIZE_ROW; row++)
@@ -57,12 +62,11 @@ public class LController implements Initializable {
     protected void creatingCellSquares(int row, int col){
         Rectangle square = new Rectangle();
 
-        Color color;
-        if ((row + col) % 2 == 0) color = Color.rgb(255, 206, 158);
-        else color = Color.rgb(205, 133, 63);
-        square.setFill(color);
+//        Color color;
+//        if ((row + col) % 2 == 0) color = Color.rgb(255, 206, 158);
+//        else color = Color.rgb(205, 133, 63);
+//        square.setFill(color);
 
-//        square.setFill(Color.WHITE); //FIXME REMOVE
         gridID.add(square, col, row);
         square.widthProperty().bind(gridID.widthProperty().divide(GRID_SIZE_COL).subtract(cellPadding));
         square.heightProperty().bind(gridID.heightProperty().divide(GRID_SIZE_ROW).subtract(cellPadding));
@@ -70,6 +74,25 @@ public class LController implements Initializable {
         square.setOnMouseClicked(event -> cellMouseClicked(row, col));
         square.setOnMouseEntered(event -> cellMouseEnter(row, col));
         square.setOnMouseExited(event -> cellMouseExited(row, col));
+
+        rectangles[row][col] = square;
+        refreshCell(row, col);
+    }
+
+    protected void refresh(){
+        for (int row = 0; row < GRID_SIZE_ROW; row++) {
+            for(int col = 0; col < GRID_SIZE_COL; col++){
+                refreshCell(row, col);
+            }
+        }
+    }
+
+    protected void refreshCell(int row, int col){
+        LPiece lPiece = lModel.getBoard().getPiece(new LPosition(row, col));
+        if(lPiece != null)
+            rectangles[row][col].setFill(lPiece.getColor());
+        else
+            rectangles[row][col].setFill(cellDefaultColor);
     }
 
     protected void cellMouseClicked(int row, int col) {
@@ -83,6 +106,10 @@ public class LController implements Initializable {
 
     protected void setCellPadding(int cellPadding){
         this.cellPadding = cellPadding;
+    }
+
+    protected void setCellDefaultColor(Color color){
+        this.cellDefaultColor = color;
     }
 
 }

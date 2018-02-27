@@ -10,6 +10,11 @@ public class LPosition {
         posY = y;
     }
 
+    public LPosition(LPosition posAdd){
+        posX += posAdd.getPosX();
+        posY += posAdd.getPosY();
+    }
+
     public LPosition(LPosition pDepart, LPosition pDirection) {
         posX = pDepart.posX + pDirection.posX;
         posY = pDepart.posY + pDirection.posY;

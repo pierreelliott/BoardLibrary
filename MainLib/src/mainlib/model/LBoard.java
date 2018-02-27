@@ -14,6 +14,7 @@ public class LBoard {
             throw new Exception("Board size must be positive.");
         this.width = width;
         this.height = height;
+        this.pieces = new ArrayList<>();
     }
 
     public int getHeight() {

@@ -1,5 +1,7 @@
 package mainlib.model;
 
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,13 +9,21 @@ public class LPiece {
 
     private List<LPosition> positions;
     private boolean broked; // Si la pièce est cassée, elle ne peut plus tourner
+    private Color color;
+    private LPosition base;
 
     public LPiece() {
-        positions = new ArrayList<>();
+        this(new ArrayList<>(), new LPosition(0,0));
     }
 
-    public LPiece(List<LPosition> pos) {
-        positions = pos;
+    public LPiece(List<LPosition> pos, LPosition base) {
+        this(pos, base, Color.MAGENTA);
+    }
+
+    public LPiece(List<LPosition> pos, LPosition base, Color color) {
+        this.positions = pos;
+        this.color = color;
+        this.base = base;
     }
 
     public List<LPosition> getPositions() {
@@ -24,6 +34,7 @@ public class LPiece {
         for(LPosition pos : positions) {
             pos.translate(p);
         }
+        base.translate(p);
     }
 
     public boolean isEmpty() {
@@ -71,7 +82,7 @@ public class LPiece {
     }
 
     public LPiece hypoMove(LPosition p) {
-        LPiece piece = new LPiece(positions);
+        LPiece piece = new LPiece(positions, base); // FIXME le "base" n'est pas sur du tout !!!
         piece.move(p);
         return piece;
     }
@@ -79,5 +90,13 @@ public class LPiece {
     // TODO Est-ce qu'on a besoin d'une autre fonction pour différencier les cases collées et celles en diagonale ?
     public List<LPosition> getAdjacentPositions() {
         return null;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
