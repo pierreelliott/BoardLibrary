@@ -9,7 +9,9 @@ public class LBoard {
     private int width;
     private int height;
 
-    public LBoard(int width, int height) {
+    public LBoard(int width, int height) throws Exception {
+        if(width <= 0 || height <= 0)
+            throw new Exception("Board size must be positive.");
         this.width = width;
         this.height = height;
     }

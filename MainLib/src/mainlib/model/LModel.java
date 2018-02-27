@@ -1,11 +1,17 @@
 package mainlib.model;
 
-/**
- * Created by tancou on 2/13/2018.
- */
 public class LModel {
 
-    public LModel(){
+    protected LBoard lBoard = null;
 
+    public LModel(){
+    }
+
+    public void setBoard(LBoard lBoard){
+        this.lBoard = lBoard;
+    }
+
+    public LBoard getBoard(){
+        return lBoard;
     }
 }

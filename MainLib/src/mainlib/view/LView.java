@@ -4,11 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import mainlib.controller.LController;
 
-import java.io.IOException;
-
-public class LView extends Application {
+public abstract class LView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -21,7 +18,7 @@ public class LView extends Application {
         return "MainLib View";
     }
 
-    protected Scene getScene() throws IOException {
+    protected Scene getScene() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(getRessource()));
         fxmlLoader.setController(getController());
@@ -32,9 +29,7 @@ public class LView extends Application {
         return "/mainlib/fxml/LView.fxml";
     }
 
-    protected Object getController(){
-        return new LController();
-    }
+    protected abstract Object getController() throws Exception;
 
     protected int getWidth(){
         return 600;
