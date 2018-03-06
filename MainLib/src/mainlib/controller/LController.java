@@ -1,9 +1,11 @@
 package mainlib.controller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -57,6 +59,8 @@ public class LController implements Initializable {
                 creatingCellSquares(row, col);
             }
         }
+
+//        gridID.setOnKeyPressed(event -> lModel.keyPressed(event.getCode().toString()));
     }
 
     protected void creatingCellSquares(int row, int col){
@@ -102,6 +106,11 @@ public class LController implements Initializable {
     }
 
     protected void cellMouseExited(int row, int col) {
+    }
+
+    @FXML
+    private void keyPressed(KeyEvent key) {
+        System.out.print(key.getCode().toString());
     }
 
     protected void setCellPadding(int cellPadding){

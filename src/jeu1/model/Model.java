@@ -10,10 +10,8 @@ import java.util.ArrayList;
 
 public class Model extends LModel {
 
-    private LBoard board;
-
     public Model() throws Exception { //FIXME enlever les essaies
-        board = new LBoard(5,6);
+        LBoard board = new LBoard(5,6);
         setBoard(board);
         ArrayList<LPosition> aPos = new ArrayList<>();
         aPos.add(new LPosition(2,2));

@@ -14,4 +14,6 @@ public class LModel {
     public LBoard getBoard(){
         return lBoard;
     }
+
+    public void keyPressed(String key) { System.out.println(key); }
 }
