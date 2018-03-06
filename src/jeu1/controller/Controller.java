@@ -1,13 +1,10 @@
 package jeu1.controller;
 
-import javafx.scene.paint.Color;
+import javafx.scene.input.KeyEvent;
 import jeu1.model.Model;
 import mainlib.controller.LController;
 import mainlib.model.LPiece;
 import mainlib.model.LPosition;
-
-import java.awt.event.KeyEvent;
-import java.util.Scanner;
 
 import static java.awt.Event.DOWN;
 
@@ -29,8 +26,11 @@ public class Controller extends LController {
         refresh();
     }
 
-    protected void keyPressed(KeyEvent event) {
-        switch (event.getKeyCode()) {
+
+    @Override
+    public void handleKeyPressed(KeyEvent event){
+        System.out.println(event.getCode());
+        switch (event.getCode()) {
             case DOWN:
                 // TODO model.speedUpPiece()
         }
