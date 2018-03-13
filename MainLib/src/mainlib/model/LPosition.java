@@ -11,8 +11,8 @@ public class LPosition {
     }
 
     public LPosition(LPosition posAdd){
-        posX += posAdd.getPosX();
-        posY += posAdd.getPosY();
+        posX = posAdd.getPosX();
+        posY = posAdd.getPosY();
     }
 
     public LPosition(LPosition pDepart, LPosition pDirection) {

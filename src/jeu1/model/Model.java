@@ -13,11 +13,15 @@ public class Model extends LModel {
     private int WIDTH = 10;
     private int HEIGHT = 20;
     private LPiece currentPiece = null;
-    private LPosition GODOWN = new LPosition(0, -1);
+    private LPosition GODOWN = new LPosition(0, 1);
     private LPosition GOLEFT = new LPosition(-1, 0);
     private LPosition GORIGHT = new LPosition(1, 0);
 
     public Model() throws Exception { //FIXME enlever les essaies
+        reset();
+    }
+
+    public void reset() throws Exception {
         LBoard board = new LBoard(WIDTH,HEIGHT);
         setBoard(board);
     }
@@ -51,49 +55,49 @@ public class Model extends LModel {
                 list.add(new LPosition(1,0));
                 list.add(new LPosition(2,0));
                 list.add(new LPosition(3,0));
-                base = list.get(1);
+                base = new LPosition(0,0);
                 break;
             case TETROMINO_J:
                 list.add(new LPosition(0,0));
                 list.add(new LPosition(1,0));
                 list.add(new LPosition(2,0));
                 list.add(new LPosition(2,1));
-                base = list.get(2);
+                base = new LPosition(2,0);
                 break;
             case TETROMINO_L:
                 list.add(new LPosition(0,0));
                 list.add(new LPosition(1,0));
                 list.add(new LPosition(2,0));
                 list.add(new LPosition(0,1));
-                base = list.get(0);
+                base = new LPosition(0,0);
                 break;
             case TETROMINO_O:
                 list.add(new LPosition(0,0));
                 list.add(new LPosition(1,0));
                 list.add(new LPosition(0,1));
                 list.add(new LPosition(1,1));
-                base = list.get(0); // FIXME Je sais pas lequel prendre
+                base = new LPosition(0,0); // FIXME Je sais pas lequel prendre
                 break;
             case TETROMINO_S:
                 list.add(new LPosition(0,1));
                 list.add(new LPosition(1,1));
                 list.add(new LPosition(1,0));
                 list.add(new LPosition(2,0));
-                base = list.get(2);
+                base = new LPosition(1,0);
                 break;
             case TETROMINO_T:
                 list.add(new LPosition(0,0));
                 list.add(new LPosition(1,0));
                 list.add(new LPosition(2,0));
                 list.add(new LPosition(1,1));
-                base = list.get(1);
+                base = new LPosition(1,0);
                 break;
             case TETROMINO_Z:
                 list.add(new LPosition(0,0));
                 list.add(new LPosition(1,0));
                 list.add(new LPosition(1,1));
                 list.add(new LPosition(2,1));
-                base = list.get(1);
+                base = new LPosition(1,0);
                 break;
         }
 

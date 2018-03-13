@@ -88,7 +88,7 @@ public class LController implements Initializable {
     }
 
     protected void refreshCell(int row, int col){
-        LPiece lPiece = lModel.getBoard().getPiece(new LPosition(row, col));
+        LPiece lPiece = lModel.getBoard().getPiece(new LPosition(col, row));
         if(lPiece != null)
             rectangles[row][col].setFill(lPiece.getColor());
         else

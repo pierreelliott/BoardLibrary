@@ -7,7 +7,7 @@ import java.util.List;
 
 public class LPiece {
 
-    private List<LPosition> positions;
+    private ArrayList<LPosition> positions;
     private boolean broked; // Si la pièce est cassée, elle ne peut plus tourner
     private Color color;
     private LPosition base;
@@ -16,11 +16,11 @@ public class LPiece {
         this(new ArrayList<>(), new LPosition(0,0));
     }
 
-    public LPiece(List<LPosition> pos, LPosition base) {
+    public LPiece(ArrayList<LPosition> pos, LPosition base) {
         this(pos, base, Color.MAGENTA);
     }
 
-    public LPiece(List<LPosition> pos, LPosition base, Color color) {
+    public LPiece(ArrayList<LPosition> pos, LPosition base, Color color) {
         this.positions = pos;
         this.color = color;
         this.base = base;
@@ -91,13 +91,17 @@ public class LPiece {
     }
 
     public LPiece hypoMove(LPosition p) {
-        LPiece piece = new LPiece(positions, base); // FIXME le "base" n'est pas sur du tout !!!
+        ArrayList<LPosition> newPos = new ArrayList<>();
+        for(LPosition pos : positions){
+            newPos.add(new LPosition(pos));
+        }
+        LPiece piece = new LPiece(newPos, new LPosition(base)); // FIXME le "base" n'est pas sur du tout !!!
         piece.move(p);
         return piece;
     }
 
     // TODO Est-ce qu'on a besoin d'une autre fonction pour différencier les cases collées et celles en diagonale ?
-    public List<LPosition> getAdjacentPositions() {
+    public ArrayList<LPosition> getAdjacentPositions() {
         return null;
     }
 
@@ -113,37 +117,33 @@ public class LPiece {
         if(positions.isEmpty()) {
             return 0;
         }
-        int w1 = -1, w2 = 0;
+        int min = 0;
+        int max = 0;
         for(LPosition p : positions) {
-            if(p.getPosX() > w2) {
-                w2 = p.getPosX();
-            }
-            if(w1 == -1) {
-                w1 = p.getPosX();
-            }
-            if(w1 > p.getPosX()) {
-                w1 = p.getPosX();
-            }
+            if(p.getPosX() > max)
+                max = p.getPosX();
+            if(p.getPosX() < min)
+                min = p.getPosX();
         }
-        return w2 - w1;
+        return max - min + 1;
     }
 
     public int getHeight() {
         if(positions.isEmpty()) {
             return 0;
         }
-        int w1 = -1, w2 = 0;
+        int min = 0;
+        int max = 0;
         for(LPosition p : positions) {
-            if(p.getPosY() > w2) {
-                w2 = p.getPosY();
-            }
-            if(w1 == -1) {
-                w1 = p.getPosY();
-            }
-            if(w1 > p.getPosY()) {
-                w1 = p.getPosY();
-            }
+            if(p.getPosY() > max)
+                max = p.getPosY();
+            if(p.getPosY() < min)
+                min = p.getPosY();
         }
-        return w2 - w1;
+        return max - min + 1;
+    }
+
+    public LPosition getBase(){
+        return base;
     }
 }
