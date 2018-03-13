@@ -45,6 +45,15 @@ public class LPiece {
         positions.remove(p);
     }
 
+    public boolean breakPiece() {
+        if(broked) {
+            return false;
+        } else {
+            broked = true;
+            return true;
+        }
+    }
+
     public boolean isOnPosition(LPosition p) {
         for(LPosition pos : positions) {
             if(pos.equals(p)) {

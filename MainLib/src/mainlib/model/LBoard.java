@@ -121,6 +121,9 @@ public class LBoard {
         LPiece[][] matrix = getMatrix();
         LPiece piece;
         for(LPosition position : hypoPos) {
+            if(!isOnBoard(position)) {
+                return false;
+            }
             piece = matrix[position.getPosY()][position.getPosX()];
             if(piece != null && piece != p) {
                 return false;
