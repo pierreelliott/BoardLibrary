@@ -99,4 +99,42 @@ public class LPiece {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    public int getWidth() {
+        if(positions.isEmpty()) {
+            return 0;
+        }
+        int w1 = -1, w2 = 0;
+        for(LPosition p : positions) {
+            if(p.getPosX() > w2) {
+                w2 = p.getPosX();
+            }
+            if(w1 == -1) {
+                w1 = p.getPosX();
+            }
+            if(w1 > p.getPosX()) {
+                w1 = p.getPosX();
+            }
+        }
+        return w2 - w1;
+    }
+
+    public int getHeight() {
+        if(positions.isEmpty()) {
+            return 0;
+        }
+        int w1 = -1, w2 = 0;
+        for(LPosition p : positions) {
+            if(p.getPosY() > w2) {
+                w2 = p.getPosY();
+            }
+            if(w1 == -1) {
+                w1 = p.getPosY();
+            }
+            if(w1 > p.getPosY()) {
+                w1 = p.getPosY();
+            }
+        }
+        return w2 - w1;
+    }
 }

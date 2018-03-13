@@ -12,6 +12,10 @@ public class Model extends LModel {
 
     private int WIDTH = 10;
     private int HEIGHT = 20;
+    private LPiece currentPiece = null;
+    private LPosition GODOWN = new LPosition(0, -1);
+    private LPosition GOLEFT = new LPosition(-1, 0);
+    private LPosition GORIGHT = new LPosition(1, 0);
 
     public Model() throws Exception { //FIXME enlever les essaies
         LBoard board = new LBoard(WIDTH,HEIGHT);
@@ -19,16 +23,17 @@ public class Model extends LModel {
     }
 
     public void spawnPiece() {
-        spawnPiece(generateRandomPiece());
+        currentPiece = spawnPiece(generateRandomPiece());
     }
 
-    public void spawnPiece(LPiece p) {
-        placeAtCenter(p);
+    public LPiece spawnPiece(LPiece p) {
+        lBoard.placeAtCenter(p);
         try {
             lBoard.addPiece(p);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return p;
     }
 
     public LPiece generateRandomPiece() {
@@ -95,7 +100,16 @@ public class Model extends LModel {
         return new LPiece(list, base);
     }
 
-    public void placeAtCenter(LPiece piece) {
-
+    public void play() {
+        if(currentPiece == null) {
+            spawnPiece();
+            return;
+        } else {
+            if(lBoard.canMove(GODOWN, currentPiece)) {
+                currentPiece.move(GODOWN);
+            } else {
+                currentPiece = null;
+            }
+        }
     }
 }

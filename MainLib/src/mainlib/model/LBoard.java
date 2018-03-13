@@ -114,4 +114,24 @@ public class LBoard {
         }
         return (count == width);
     }
+
+    public boolean canMove(LPosition pos, LPiece p) {
+        LPiece hypo = p.hypoMove(pos);
+        List<LPosition> hypoPos = hypo.getPositions();
+        LPiece[][] matrix = getMatrix();
+        LPiece piece;
+        for(LPosition position : hypoPos) {
+            piece = matrix[position.getPosY()][position.getPosX()];
+            if(piece != null && piece != p) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void placeAtCenter(LPiece piece) {
+        int pieceWidth = piece.getWidth();
+        int leftOffset = (width - pieceWidth)/2;
+        piece.move(new LPosition(leftOffset, 0));
+    }
 }
