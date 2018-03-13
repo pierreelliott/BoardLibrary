@@ -18,9 +18,6 @@ public class Controller extends LController {
         System.out.println("Cell clicked at " + row + "," + col);
         LPiece lPiece = lModel.getBoard().getPiece(new LPosition(row, col));
         System.out.println(lPiece);
-        if(lPiece != null){
-            lPiece.move(new LPosition(1,1));
-        }
         refresh();
     }
 

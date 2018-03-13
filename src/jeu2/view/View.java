@@ -9,7 +9,7 @@ import mainlib.view.LView;
 public class View extends LView {
 
     public View() throws Exception {
-        setTitle("Tetris");
+        setTitle("Blokus");
 
         Model model = new Model();
         Controller controller = new Controller(model);
