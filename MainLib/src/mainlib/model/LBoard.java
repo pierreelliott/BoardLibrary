@@ -29,7 +29,7 @@ public class LBoard {
         LPiece[][] matrix = new LPiece[height][width];
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
-                matrix[i][j] = getPiece(new LPosition(i, j)); // stocke un pointeur sur la pièce qui l'occupe ou null sinon
+                matrix[i][j] = getPiece(new LPosition(j, i)); // stocke un pointeur sur la pièce qui l'occupe ou null sinon
             }
         }
 
@@ -115,21 +115,25 @@ public class LBoard {
         return (count == width);
     }
 
-    public boolean canMove(LPosition pos, LPiece p) { //FIXME soucis de collision
+    public boolean canMove(LPosition pos, LPiece p) {
         LPiece hypo = p.hypoMove(pos);
+        ArrayList<LPosition> hypoPos = hypo.getPositions();
 
-        List<LPosition> hypoPos = hypo.getPositions();
         LPiece[][] matrix = getMatrix();
-        LPiece piece;
-        for(LPosition position : hypoPos) {
+        for(LPosition position : p.getPositions()){
+            matrix[position.getPosY()][position.getPosX()] = null;
+        }
+        for(LPosition position : hypoPos){
             if(!isOnBoard(position)) {
+                System.out.println("STOP Is not on board " + position.toString());
                 return false;
             }
-            piece = matrix[position.getPosY()][position.getPosX()];
-            if(piece != null && piece != p) {
+            if(matrix[position.getPosY()][position.getPosX()] != null){
+                System.out.println("STOP matrix " + position.toString());
                 return false;
             }
         }
+
         return true;
     }
 

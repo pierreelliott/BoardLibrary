@@ -66,4 +66,9 @@ public class LPosition {
         result = 31 * result + getPosY();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "[" + posX + ";" + posY + "]";
+    }
 }

@@ -4,6 +4,11 @@ public class LModel {
 
     protected LBoard lBoard = null;
 
+    protected final LPosition GOUP = new LPosition(0, -1);
+    protected final LPosition GODOWN = new LPosition(0, 1);
+    protected final LPosition GOLEFT = new LPosition(-1, 0);
+    protected final LPosition GORIGHT = new LPosition(1, 0);
+
     public LModel(){
     }
 
@@ -16,4 +21,18 @@ public class LModel {
     }
 
     public void keyPressed(String key) { System.out.println(key); }
+
+    public boolean moveSafely(LPiece piece, LPosition position){
+        if(piece == null)
+            return false;
+        if(lBoard.canMove(position, piece)) {
+            piece.move(position);
+            return true;
+        }
+        return false;
+    }
+
+    public void moveOverwrite(LPiece piece, LPosition position){
+        piece.move(position);
+    }
 }

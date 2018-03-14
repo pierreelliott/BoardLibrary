@@ -19,7 +19,7 @@ public class Controller extends LController {
 
 
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> TEST()));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5D), event -> timing()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
@@ -27,7 +27,7 @@ public class Controller extends LController {
 
 
     //FIXME
-    private void TEST() {
+    private void timing() {
         ((Model) lModel).play();
 //        ((Model) lModel).spawnPiece();
         refresh();
@@ -36,18 +36,18 @@ public class Controller extends LController {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        System.out.println("TEST");
+//        System.out.println("timing");
     }
 
     @Override
     protected void cellMouseClicked(int row, int col) {
-        System.out.println("Cell clicked at " + row + "," + col);
-        LPiece lPiece = lModel.getBoard().getPiece(new LPosition(row, col));
-        System.out.println(lPiece);
-        if(lPiece != null){
-            lPiece.move(new LPosition(1,1));
-        }
-        refresh();
+//        System.out.println("Cell clicked at " + row + "," + col);
+//        LPiece lPiece = lModel.getBoard().getPiece(new LPosition(row, col));
+//        System.out.println(lPiece);
+//        if(lPiece != null){
+//            lPiece.move(new LPosition(1,1));
+//        }
+//        refresh();
     }
 
 
@@ -56,7 +56,18 @@ public class Controller extends LController {
         System.out.println(event.getCode());
         switch (event.getCode()) {
             case DOWN:
-                // TODO model.speedUpPiece()
+                ((Model) lModel).speedUpPiece();
+                break;
+            case LEFT:
+                ((Model) lModel).moveLeft();
+                break;
+            case RIGHT:
+                ((Model) lModel).moveRight();
+                break;
+            case UP:
+
+                break;
         }
+        refresh();
     }
 }

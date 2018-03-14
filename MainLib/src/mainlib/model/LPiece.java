@@ -26,7 +26,7 @@ public class LPiece {
         this.base = base;
     }
 
-    public List<LPosition> getPositions() {
+    public ArrayList<LPosition> getPositions() {
         return positions;
     }
 
