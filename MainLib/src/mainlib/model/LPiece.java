@@ -256,4 +256,33 @@ public class LPiece {
     public boolean isBroken(){
         return positions.size() == 1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LPiece)) return false;
+
+        LPiece lPiece = (LPiece) o;
+
+        if (getColor() != lPiece.getColor()) return false;
+        if (getBase() != lPiece.getBase()) return false;
+        ArrayList<LPosition> lpositions = lPiece.getPositions();
+        if(getPositions().size() != lpositions.size()) return false;
+        for (LPosition lpos : lpositions) {
+            if(!getPositions().contains(lpos)) return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 37 * result + getColor().hashCode();
+        result = 37 * result + getBase().hashCode();
+        for (LPosition lpos : getPositions()) {
+            result = 37 * result + lpos.hashCode();
+        }
+        return result;
+    }
+
 }

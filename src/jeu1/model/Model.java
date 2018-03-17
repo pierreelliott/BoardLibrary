@@ -12,7 +12,6 @@ public class Model extends LModel {
 
     private int WIDTH = 10;
     private int HEIGHT = 20;
-    private LPiece currentPiece = null;
 
     public Model() throws Exception {
         reset();
@@ -24,17 +23,17 @@ public class Model extends LModel {
     }
 
     public void spawnPiece() {
-        currentPiece = spawnPiece(generateRandomPiece());
-        if(currentPiece == null)
-            finished = true;
+        setCurrentPiece(spawnPiece(generateRandomPiece()));
+        if(!hasCurrentPiece())
+            setFinished(true);
     }
 
     public LPiece spawnPiece(LPiece p) {
-        if(!lBoard.placeAtTopCenter(p)){
+        if(!getBoard().placeAtTopCenter(p)){
             return null;
         }
         try {
-            lBoard.addPiece(p);
+            getBoard().addPiece(p);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,43 +113,43 @@ public class Model extends LModel {
     }
 
     public void play() {
-        if(finished)
+        if(isFinished())
             return;
 
-        if(currentPiece == null) {
+        if(!hasCurrentPiece()) {
             spawnPiece();
             return;
         } else {
-            if(!moveSafely(currentPiece, GODOWN)){
-                lBoard.explodeLPiece(currentPiece);
-                currentPiece = null;
+            if(!moveSafely(getCurrentPiece(), GODOWN)){
+                getBoard().explodeLPiece(getCurrentPiece());
+                resetCurrentPiece();
             }
         }
         fullRow();
     }
 
     public void speedUpPiece() {
-        while (currentPiece != null && moveSafely(currentPiece, GODOWN));
+        while (hasCurrentPiece() && moveSafely(getCurrentPiece(), GODOWN));
     }
 
     public void moveRight(){
-        moveSafely(currentPiece, GORIGHT);
+        moveSafely(getCurrentPiece(), GORIGHT);
     }
 
     public void moveLeft(){
-        moveSafely(currentPiece, GOLEFT);
+        moveSafely(getCurrentPiece(), GOLEFT);
     }
 
     public void rotate() {
-        rotateSafely(currentPiece, true);
+        rotateSafely(getCurrentPiece(), true);
     }
 
     public void fullRow(){
         for(int i = 0 ; i < HEIGHT; i++){
-            if(lBoard.isFullLine(new LPosition(0, i), new LPosition(1,0))){
+            if(getBoard().isFullLine(new LPosition(0, i), new LPosition(1,0))){
                 System.out.println("Line " + i + " full !");
-                lBoard.clearLine(new LPosition(0, i), new LPosition(1,0));
-                lBoard.movePieces(
+                getBoard().clearLine(new LPosition(0, i), new LPosition(1,0));
+                getBoard().movePieces(
                         new LPosition(0, 0),
                         new LPosition(WIDTH -1, i),
                         new LPosition(0,1)

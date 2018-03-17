@@ -21,11 +21,11 @@ public class LModel {
     /**
      * Instance of LBoard containing pieces.
      */
-    protected LBoard lBoard = null;
+    private LBoard lBoard = null;
     /**
      * Specify if the game if over.
      */
-    protected boolean finished = false;
+    private boolean finished = false;
 
     /**
      * Relative position for up movement.
@@ -43,6 +43,11 @@ public class LModel {
      * Relative position for right movement.
      */
     protected static final LPosition GORIGHT = new LPosition(1, 0);
+
+    /**
+     * Selected LPiece
+     */
+    private LPiece currentPiece = null;
 
     /**
      * Main constructor
@@ -133,5 +138,36 @@ public class LModel {
      */
     public boolean isFinished(){
         return finished;
+    }
+
+    /**
+     * Current selected piece getter.
+     * @return LPiece
+     */
+    public LPiece getCurrentPiece() {
+        return currentPiece;
+    }
+
+    /**
+     * Current selected piece setter.
+     * @param currentPiece LPiece
+     */
+    public void setCurrentPiece(LPiece currentPiece) {
+        this.currentPiece = currentPiece;
+    }
+
+    /**
+     * Reset the selected piece to null.
+     */
+    public void resetCurrentPiece(){
+        this.currentPiece = null;
+    }
+
+    /**
+     * Check if a piece has been selected.
+     * @return <em>true</em> when a piece has been selected.
+     */
+    public boolean hasCurrentPiece(){
+        return this.currentPiece != null;
     }
 }
