@@ -6,8 +6,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import jeu1.model.Model;
 import mainlib.controller.LController;
-import mainlib.model.LPiece;
-import mainlib.model.LPosition;
 
 public class Controller extends LController {
 

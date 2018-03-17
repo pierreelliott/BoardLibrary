@@ -8,7 +8,6 @@ import java.util.List;
 public class LPiece {
 
     private ArrayList<LPosition> positions;
-    private boolean broked; // Si la pièce est cassée, elle ne peut plus tourner
     private Color color;
     private LPosition base;
 
@@ -61,15 +60,6 @@ public class LPiece {
 
     public void removePosition(LPosition p) {
         positions.remove(p);
-    }
-
-    public boolean breakPiece() {
-        if(broked) {
-            return false;
-        } else {
-            broked = true;
-            return true;
-        }
     }
 
     public boolean isOnPosition(LPosition p) {
@@ -157,5 +147,9 @@ public class LPiece {
 
     public LPosition getBase(){
         return base;
+    }
+
+    public boolean isBroken(){
+        return positions.size() == 1;
     }
 }

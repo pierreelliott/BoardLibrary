@@ -152,4 +152,75 @@ public class LBoard {
         int leftOffset = (width - pieceWidth)/2;
         piece.move(new LPosition(leftOffset, 0));
     }
+
+    public boolean isFullLine(LPosition startPos, LPosition direction){
+        if(!isOnBoard(startPos)){
+            return false;
+        }
+
+        LPiece[][] matrix = getMatrix();
+        LPosition testpos = new LPosition(startPos);
+        do {
+            if(matrix[testpos.getPosY()][testpos.getPosX()] != null){
+                testpos.translate(direction);
+            } else {
+                return false;
+            }
+        } while(isOnBoard(testpos));
+        return true;
+    }
+
+    public void explodeLPiece(LPiece lPiece) {
+        LPiece previousLPiece = new LPiece(lPiece);
+        ArrayList<LPosition> positions = previousLPiece.getPositions();
+        pieces.remove(lPiece);
+        ArrayList<LPosition> soloPos;
+        for (LPosition pos : positions) {
+            soloPos = new ArrayList<>();
+            soloPos.add(new LPosition(pos));
+            try {
+                addPiece(
+                        new LPiece(soloPos, pos, previousLPiece.getColor())
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void clearLine(LPosition startPos, LPosition direction){
+        if(!isOnBoard(startPos))
+            return;
+
+        LPiece[][] matrix = getMatrix();
+        LPosition toCleanPos = new LPosition(startPos);
+        do {
+            if(matrix[toCleanPos.getPosY()][toCleanPos.getPosX()] != null)
+                if(matrix[toCleanPos.getPosY()][toCleanPos.getPosX()].isBroken())
+                    removePiece(matrix[toCleanPos.getPosY()][toCleanPos.getPosX()]);
+            toCleanPos.translate(direction);
+        } while(isOnBoard(toCleanPos));
+    }
+
+    public void movePieces(LPosition firstCornerPosition, LPosition secondCornerPosition, LPosition direction){
+        if(firstCornerPosition.getPosX() > secondCornerPosition.getPosX() ||
+                firstCornerPosition.getPosY() > secondCornerPosition.getPosY()){
+            return;
+        }
+
+        if(!isOnBoard(firstCornerPosition) || !isOnBoard(secondCornerPosition)){
+            return;
+        }
+
+        LPiece[][] matrix = getMatrix();
+        for(int i = firstCornerPosition.getPosX(); i <= secondCornerPosition.getPosX(); i++){
+            for(int j = firstCornerPosition.getPosY(); j <=  secondCornerPosition.getPosY(); j++){
+                if(matrix[j][i] != null){
+                    if(matrix[j][i].isBroken()){
+                        matrix[j][i].move(direction);
+                    }
+                }
+            }
+        }
+    }
 }

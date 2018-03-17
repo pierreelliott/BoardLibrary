@@ -114,9 +114,12 @@ public class Model extends LModel {
             spawnPiece();
             return;
         } else {
-            if(!moveSafely(currentPiece, GODOWN))
+            if(!moveSafely(currentPiece, GODOWN)){
+                lBoard.explodeLPiece(currentPiece);
                 currentPiece = null;
+            }
         }
+        fullRow();
     }
 
     public void speedUpPiece() {
@@ -132,6 +135,20 @@ public class Model extends LModel {
     }
 
     public void rotate() {
-        rotateSafely(currentPiece, false);
+        rotateSafely(currentPiece, true);
+    }
+
+    public void fullRow(){
+        for(int i = 0 ; i < HEIGHT; i++){
+            if(lBoard.isFullLine(new LPosition(0, i), new LPosition(1,0))){
+                System.out.println("Line " + i + " full !");
+                lBoard.clearLine(new LPosition(0, i), new LPosition(1,0));
+                lBoard.movePieces(
+                        new LPosition(0, 0),
+                        new LPosition(WIDTH -1, i),
+                        new LPosition(0,1)
+                );
+            }
+        }
     }
 }
