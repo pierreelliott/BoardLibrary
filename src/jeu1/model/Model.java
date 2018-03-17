@@ -30,7 +30,7 @@ public class Model extends LModel {
     }
 
     public LPiece spawnPiece(LPiece p) {
-        if(!lBoard.placeAtCenter(p)){
+        if(!lBoard.placeAtTopCenter(p)){
             return null;
         }
         try {

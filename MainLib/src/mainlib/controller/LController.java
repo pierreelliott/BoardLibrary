@@ -11,28 +11,77 @@ import javafx.scene.shape.Rectangle;
 import mainlib.model.LModel;
 import mainlib.model.LPiece;
 import mainlib.model.LPosition;
+import mainlib.view.LView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The LController class is a default controller used by Javafx ans the GUI
+ * It uses variables used in the template of <i>LView.fxml</i>
+ * This class provides every interactions between the View and the Model.
+ *
+ *
+ * @author  Tancrède SUARD 11505293
+ * @author  Pierre-Elliott THIBOUD 11402690
+ * @version 1.0
+ * @since   2018-01-17
+ *
+ * @see LModel
+ * @see LPiece
+ * @see LPosition
+ */
 public class LController implements Initializable {
 
+    /**
+     * vBox id from fxml
+     */
     @FXML
     protected VBox vBoxID;
 
+    /**
+     * Grid id from fxml
+     */
     @FXML
     protected GridPane gridID;
 
+    /**
+     * Model var
+     */
     protected LModel lModel;
 
+    /**
+     * Number of row for the grid
+     */
     private int GRID_SIZE_ROW;
+
+    /**
+     * Number of column for the grid
+     */
     private int GRID_SIZE_COL;
 
+    /**
+     * Padding cell for color of piece.
+     * Must be positive.
+     */
     private int cellPadding = 0;
+
+    /**
+     * Default color for cells
+     */
     private Color cellDefaultColor = Color.WHITE;
 
+    /**
+     * Two dimensional for rectangles pointers.
+     */
     private Rectangle[][] rectangles;
 
+    /**
+     * Constructor
+     * @param lModel Model to use.
+     * @throws Exception If board into the model is not initialized.
+     * @see LModel#getBoard()
+     */
     public LController(LModel lModel) throws Exception {
         if(lModel.getBoard() == null){
             throw new Exception("Board not initialized on Model");
@@ -59,6 +108,18 @@ public class LController implements Initializable {
         }
     }
 
+    /**
+     * Create cell squares.
+     * Register events with mouse.
+     * Color of squares is not specified here.
+     * Call <em>refreshCell(row, col)</em> function.
+     * @param row Row
+     * @param col Column
+     * @see #cellMouseClicked(int, int)
+     * @see #cellMouseEnter(int, int)
+     * @see #cellMouseExited(int, int)
+     * @see #refreshCell(int, int)
+     */
     protected void creatingCellSquares(int row, int col){
         Rectangle square = new Rectangle();
 
@@ -74,6 +135,10 @@ public class LController implements Initializable {
         refreshCell(row, col);
     }
 
+    /**
+     * Refresh all cell of the grid.
+     * @see #refreshCell(int, int)
+     */
     protected void refresh(){
         for (int row = 0; row < GRID_SIZE_ROW; row++) {
             for(int col = 0; col < GRID_SIZE_COL; col++){
@@ -82,38 +147,89 @@ public class LController implements Initializable {
         }
     }
 
+    /**
+     * Refresh the color of a cell second to piece color.
+     * If there is no piece, use default color.
+     * @param row Row
+     * @param col Column
+     * @see LPiece#getColor()
+     * @see #setCellDefaultColor(Color)
+     */
     protected void refreshCell(int row, int col){
         LPiece lPiece = lModel.getBoard().getPiece(new LPosition(col, row));
-        if(lPiece != null)
+        if (lPiece != null) {
             rectangles[row][col].setFill(lPiece.getColor());
+        }
         else
             rectangles[row][col].setFill(cellDefaultColor);
     }
 
+    /**
+     * Triggered when a cell is clicked.
+     * @param row Row
+     * @param col Column
+     * @see #creatingCellSquares(int, int)
+     */
     protected void cellMouseClicked(int row, int col) {
     }
 
+    /**
+     * Triggered when mouse enters over a cell
+     * @param row Row
+     * @param col Column
+     * @see #creatingCellSquares(int, int)
+     */
     protected void cellMouseEnter(int row, int col) {
     }
 
+    /**
+     * Triggered when mouse go out the cell
+     * @param row Row
+     * @param col Column
+     * @see #creatingCellSquares(int, int)
+     */
     protected void cellMouseExited(int row, int col) {
     }
 
+    /**
+     * Set padding for cells
+     * @param cellPadding int Must be positive. If not, reset to 0.
+     */
     protected void setCellPadding(int cellPadding){
+        if(cellPadding < 0)
+            cellPadding = 0;
         this.cellPadding = cellPadding;
     }
 
+    /**
+     * Set default color for cells
+     * @param color Color
+     */
     protected void setCellDefaultColor(Color color){
         this.cellDefaultColor = color;
     }
 
+    /**
+     * Triggered when a key is pressed.
+     * @param event KeyEvent
+     * @see LView#loadHandlers()
+     */
     public void handleKeyPressed(KeyEvent event){
     }
 
+    /**
+     * Triggered when a key is released.
+     * @param event KeyEvent
+     * @see LView#loadHandlers()
+     */
     public void handleKeyReleased(KeyEvent event) {
     }
 
+    /**
+     * Triggered when a key is typed.
+     * @param event KeyEvent
+     * @see LView#loadHandlers()
+     */
     public void handleKeyTyped(KeyEvent event) {
-
     }
 }

@@ -26,7 +26,7 @@ public class Model extends LModel {
     }
 
     public LPiece spawnPiece(LPiece p) {
-        lBoard.placeAtCenter(p);
+        lBoard.placeAtTopCenter(p);
         try {
             lBoard.addPiece(p);
         } catch (Exception e) {
