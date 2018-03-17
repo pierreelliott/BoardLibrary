@@ -25,10 +25,14 @@ public class Model extends LModel {
 
     public void spawnPiece() {
         currentPiece = spawnPiece(generateRandomPiece());
+        if(currentPiece == null)
+            finished = true;
     }
 
     public LPiece spawnPiece(LPiece p) {
-        lBoard.placeAtCenter(p);
+        if(!lBoard.placeAtCenter(p)){
+            return null;
+        }
         try {
             lBoard.addPiece(p);
         } catch (Exception e) {
@@ -77,7 +81,7 @@ public class Model extends LModel {
                 list.add(new LPosition(1,0));
                 list.add(new LPosition(0,1));
                 list.add(new LPosition(1,1));
-                base = new LPosition(0,0); // FIXME Je sais pas lequel prendre
+                base = new LPosition(0,0);
                 color = Color.CYAN;
                 break;
             case TETROMINO_S:
@@ -110,6 +114,9 @@ public class Model extends LModel {
     }
 
     public void play() {
+        if(finished)
+            return;
+
         if(currentPiece == null) {
             spawnPiece();
             return;

@@ -3,6 +3,7 @@ package mainlib.model;
 public class LModel {
 
     protected LBoard lBoard = null;
+    protected boolean finished = false;
 
     protected final LPosition GOUP = new LPosition(0, -1);
     protected final LPosition GODOWN = new LPosition(0, 1);
@@ -48,5 +49,13 @@ public class LModel {
 
     public void rotateOverwrite(LPiece piece, boolean trigo){
         piece.rotate(trigo);
+    }
+
+    public void setFinished(boolean finished){
+        this.finished = finished;
+    }
+
+    public boolean isFinished(){
+        return finished;
     }
 }

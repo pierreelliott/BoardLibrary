@@ -5,7 +5,7 @@
     <children>
         <AnchorPane fx:id="anchorID" scaleShape="false" VBox.vgrow="ALWAYS">
             <children>
-                <GridPane fx:id="gridID" gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <GridPane fx:id="gridID" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <rowConstraints>
                     </rowConstraints>
                     <columnConstraints>

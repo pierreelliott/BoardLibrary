@@ -10,29 +10,35 @@ import mainlib.controller.LController;
 public class Controller extends LController {
 
     private boolean pause;
+    private Timeline timeline;
 
     public Controller(Model model) throws Exception {
         super(model);
-        setCellPadding(5);
+        setCellPadding(3);
 
         pause = false;
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5D), event -> timing()));
+        timeline = new Timeline(new KeyFrame(Duration.seconds(0.5D), event -> timing()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
     }
 
     private void timing() {
         if(!pause)
             ((Model) lModel).play();
         refresh();
+        if(lModel.isFinished()){
+            System.out.println("##################");
+            System.out.println("# Game finished. #");
+            System.out.println("##################");
+            timeline.stop();
+        }
     }
 
 
     @Override
     public void handleKeyPressed(KeyEvent event){
-        System.out.println(event.getCode());
+//        System.out.println(event.getCode());
         switch (event.getCode()) {
             case DOWN:
                 ((Model) lModel).speedUpPiece();

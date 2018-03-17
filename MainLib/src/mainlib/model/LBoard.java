@@ -136,21 +136,25 @@ public class LBoard {
         ArrayList<LPosition> hypoPos = hypoLPiece.getPositions();
         for(LPosition position : hypoPos){
             if(!isOnBoard(position)) {
-                System.out.println("STOP Is not on board " + position.toString());
+//                System.out.println("STOP Is not on board " + position.toString());
                 return true;
             }
             if(matrix[position.getPosY()][position.getPosX()] != null){
-                System.out.println("STOP matrix " + position.toString());
+//                System.out.println("STOP matrix " + position.toString());
                 return true;
             }
         }
         return false;
     }
 
-    public void placeAtCenter(LPiece piece) {
+    public boolean placeAtCenter(LPiece piece) {
         int pieceWidth = piece.getWidth();
         int leftOffset = (width - pieceWidth)/2;
-        piece.move(new LPosition(leftOffset, 0));
+        if(canMove(new LPosition(leftOffset, 0), piece)){
+            piece.move(new LPosition(leftOffset, 0));
+            return true;
+        }
+        return false;
     }
 
     public boolean isFullLine(LPosition startPos, LPosition direction){
@@ -162,10 +166,10 @@ public class LBoard {
         LPosition testpos = new LPosition(startPos);
         do {
             if(matrix[testpos.getPosY()][testpos.getPosX()] != null){
-                testpos.translate(direction);
-            } else {
-                return false;
-            }
+                if(matrix[testpos.getPosY()][testpos.getPosX()].isBroken()){
+                    testpos.translate(direction);
+                } else return false;
+            } else return false;
         } while(isOnBoard(testpos));
         return true;
     }
