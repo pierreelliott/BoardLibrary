@@ -10,14 +10,18 @@ public class LPosition {
         posY = y;
     }
 
-    public LPosition(LPosition posAdd){
-        posX = posAdd.getPosX();
-        posY = posAdd.getPosY();
+    /**
+     * Clone constructor
+     * @param lPosition LPosition
+     */
+    public LPosition(LPosition lPosition){
+        posX = lPosition.getPosX();
+        posY = lPosition.getPosY();
     }
 
     public LPosition(LPosition pDepart, LPosition pDirection) {
-        posX = pDepart.posX + pDirection.posX;
-        posY = pDepart.posY + pDirection.posY;
+        posX = pDepart.getPosX() + pDirection.getPosX();
+        posY = pDepart.getPosY() + pDirection.getPosY();
     }
 
     public void translateX(int i) {
@@ -29,8 +33,8 @@ public class LPosition {
     }
 
     public void translate(LPosition p) {
-        posX += p.posX;
-        posY += p.posY;
+        posX += p.getPosX();
+        posY += p.getPosY();
     }
 
     public int getPosX() {
@@ -47,6 +51,34 @@ public class LPosition {
 
     public void setPosY(int posY) {
         this.posY = posY;
+    }
+
+    public void rotate90Trigo(){
+        int tmp = posX;
+        posX = -posY;
+        posY = tmp;
+    }
+
+    public void rotate90Trigo(LPosition centerPos){
+        posX -= centerPos.getPosX();
+        posY -= centerPos.getPosY();
+        rotate90Trigo();
+        posX += centerPos.getPosX();
+        posY += centerPos.getPosY();
+    }
+
+    public void rotate90AntiTrigo(){
+        int tmp = posX;
+        posX = posY;
+        posY = -tmp;
+    }
+
+    public void rotate90AntiTrigo(LPosition centerPos){
+        posX -= centerPos.getPosX();
+        posY -= centerPos.getPosY();
+        rotate90AntiTrigo();
+        posX += centerPos.getPosX();
+        posY += centerPos.getPosY();
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Model extends LModel {
     private int HEIGHT = 20;
     private LPiece currentPiece = null;
 
-    public Model() throws Exception { //FIXME enlever les essaies
+    public Model() throws Exception {
         reset();
     }
 
@@ -129,5 +129,9 @@ public class Model extends LModel {
 
     public void moveLeft(){
         moveSafely(currentPiece, GOLEFT);
+    }
+
+    public void rotate() {
+        rotateSafely(currentPiece, false);
     }
 }

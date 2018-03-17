@@ -62,11 +62,6 @@ public class LController implements Initializable {
     protected void creatingCellSquares(int row, int col){
         Rectangle square = new Rectangle();
 
-//        Color color;
-//        if ((row + col) % 2 == 0) color = Color.rgb(255, 206, 158);
-//        else color = Color.rgb(205, 133, 63);
-//        square.setFill(color);
-
         gridID.add(square, col, row);
         square.widthProperty().bind(gridID.widthProperty().divide(GRID_SIZE_COL).subtract(cellPadding));
         square.heightProperty().bind(gridID.heightProperty().divide(GRID_SIZE_ROW).subtract(cellPadding));

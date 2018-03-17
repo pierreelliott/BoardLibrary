@@ -32,7 +32,21 @@ public class LModel {
         return false;
     }
 
+    public boolean rotateSafely(LPiece piece, boolean trigo){
+        if(piece == null)
+            return false;
+        if(lBoard.canRotate(piece, trigo)) {
+            piece.rotate(trigo);
+            return true;
+        }
+        return false;
+    }
+
     public void moveOverwrite(LPiece piece, LPosition position){
         piece.move(position);
+    }
+
+    public void rotateOverwrite(LPiece piece, boolean trigo){
+        piece.rotate(trigo);
     }
 }

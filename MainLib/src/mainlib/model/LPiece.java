@@ -16,6 +16,24 @@ public class LPiece {
         this(new ArrayList<>(), new LPosition(0,0));
     }
 
+    /**
+     * Clone constructor LPiece
+     * @param p Lpiece
+     */
+    public LPiece(LPiece p){
+        positions = new ArrayList<>();
+        for(LPosition pos : p.getPositions()){
+            positions.add(new LPosition(pos));
+        }
+        base = new LPosition(p.getBase());
+        color = new Color(
+                p.getColor().getRed(),
+                p.getColor().getGreen(),
+                p.getColor().getBlue(),
+                p.getColor().getOpacity()
+        );
+    }
+
     public LPiece(ArrayList<LPosition> pos, LPosition base) {
         this(pos, base, Color.MAGENTA);
     }
@@ -85,19 +103,13 @@ public class LPiece {
         positions.removeAll(pos);
     }
 
-    // TODO Ajouter le sens en paramètre ?
-    public void rotate() {
-        // Après discussion : mettre un point de rotation en attribut de la pièce que l'on utilisera ensuite
-    }
-
-    public LPiece hypoMove(LPosition p) {
-        ArrayList<LPosition> newPos = new ArrayList<>();
-        for(LPosition pos : positions){
-            newPos.add(new LPosition(pos));
+    public void rotate(boolean trigo){
+        for(LPosition pos : positions) {
+            if(trigo)
+                pos.rotate90Trigo(base);
+            else
+                pos.rotate90AntiTrigo(base);
         }
-        LPiece piece = new LPiece(newPos, new LPosition(base)); // FIXME le "base" n'est pas sur du tout !!!
-        piece.move(p);
-        return piece;
     }
 
     // TODO Est-ce qu'on a besoin d'une autre fonction pour différencier les cases collées et celles en diagonale ?

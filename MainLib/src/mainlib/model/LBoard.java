@@ -116,25 +116,35 @@ public class LBoard {
     }
 
     public boolean canMove(LPosition pos, LPiece p) {
-        LPiece hypo = p.hypoMove(pos);
-        ArrayList<LPosition> hypoPos = hypo.getPositions();
+        LPiece hypo = new LPiece(p);
+        hypo.move(pos);
+        return !isCollision(p, hypo);
+    }
 
+    public boolean canRotate(LPiece p, boolean trigo){
+        LPiece hypo = new LPiece(p);
+        hypo.rotate(trigo);
+        return !isCollision(p, hypo);
+    }
+
+    private boolean isCollision(LPiece lPiece, LPiece hypoLPiece){
         LPiece[][] matrix = getMatrix();
-        for(LPosition position : p.getPositions()){
+        for(LPosition position : lPiece.getPositions()){
             matrix[position.getPosY()][position.getPosX()] = null;
         }
+
+        ArrayList<LPosition> hypoPos = hypoLPiece.getPositions();
         for(LPosition position : hypoPos){
             if(!isOnBoard(position)) {
                 System.out.println("STOP Is not on board " + position.toString());
-                return false;
+                return true;
             }
             if(matrix[position.getPosY()][position.getPosX()] != null){
                 System.out.println("STOP matrix " + position.toString());
-                return false;
+                return true;
             }
         }
-
-        return true;
+        return false;
     }
 
     public void placeAtCenter(LPiece piece) {

@@ -11,13 +11,13 @@ import mainlib.model.LPosition;
 
 public class Controller extends LController {
 
+    private boolean pause;
+
     public Controller(Model model) throws Exception {
         super(model);
         setCellPadding(5);
-//        setCellDefaultColor(Color.RED);
 
-
-
+        pause = false;
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5D), event -> timing()));
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -25,29 +25,10 @@ public class Controller extends LController {
 
     }
 
-
-    //FIXME
     private void timing() {
-        ((Model) lModel).play();
-//        ((Model) lModel).spawnPiece();
+        if(!pause)
+            ((Model) lModel).play();
         refresh();
-//        try {
-//            ((Model) lModel).reset();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("timing");
-    }
-
-    @Override
-    protected void cellMouseClicked(int row, int col) {
-//        System.out.println("Cell clicked at " + row + "," + col);
-//        LPiece lPiece = lModel.getBoard().getPiece(new LPosition(row, col));
-//        System.out.println(lPiece);
-//        if(lPiece != null){
-//            lPiece.move(new LPosition(1,1));
-//        }
-//        refresh();
     }
 
 
@@ -65,7 +46,10 @@ public class Controller extends LController {
                 ((Model) lModel).moveRight();
                 break;
             case UP:
-
+                ((Model) lModel).rotate();
+                break;
+            case SPACE: //FIXME enlever ce cheat
+                pause = !pause;
                 break;
         }
         refresh();

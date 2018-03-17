@@ -17,7 +17,8 @@ public class View extends LView {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(DEFAULTRES));
         fxmlLoader.setController(controller);
-        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        int ratio = 35;
+        Scene scene = new Scene(fxmlLoader.load(), ratio*10, ratio*20);
 
         setlModel(model);
         setlController(controller);
