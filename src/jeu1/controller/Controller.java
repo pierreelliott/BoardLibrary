@@ -14,13 +14,19 @@ public class Controller extends LController {
 
     public Controller(Model model) throws Exception {
         super(model);
-        setCellPadding(3);
+        setCellPadding(2);
 
         pause = false;
 
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.5D), event -> timing()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+    @Override
+    protected void preInitialize(){
+        super.preInitialize();
+        gridID.setGridLinesVisible(false);
     }
 
     private void timing() {

@@ -34,10 +34,10 @@ import java.util.ResourceBundle;
 public class LController implements Initializable {
 
     /**
-     * vBox id from fxml
+     * AnchorPane id from fxml
      */
     @FXML
-    protected VBox vBoxID;
+    protected AnchorPane anchorID;
 
     /**
      * Grid id from fxml
@@ -92,8 +92,25 @@ public class LController implements Initializable {
         this.rectangles = new Rectangle[GRID_SIZE_ROW][GRID_SIZE_COL];
     }
 
+    /**
+     * Allow modifications of JavaFX elements which were not instantiated during constructor.
+     */
+    protected void preInitialize(){
+        this.anchorID.styleProperty().set(
+                this.anchorID.styleProperty().getValue() + ";" +
+                "-fx-background-color: white;");
+    }
+
+    /**
+     * Allow modifications of JavaFX elements after the initialize call.
+     * @see #initialize(URL, ResourceBundle)
+     */
+    protected void postInitialize(){
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        preInitialize();
         ColumnConstraints colDefault = new ColumnConstraints(0,0,Double.MAX_VALUE, Priority.ALWAYS, HPos.CENTER, true);
         RowConstraints rowDefault = new RowConstraints(0,0,Double.MAX_VALUE, Priority.ALWAYS, VPos.CENTER, true);
         for (int row = 0; row < GRID_SIZE_ROW; row++)
@@ -106,6 +123,7 @@ public class LController implements Initializable {
                 creatingCellSquares(row, col);
             }
         }
+        postInitialize();
     }
 
     /**
