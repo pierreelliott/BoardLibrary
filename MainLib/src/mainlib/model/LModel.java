@@ -50,6 +50,16 @@ public class LModel {
     private LPiece currentPiece = null;
 
     /**
+     * Game score
+     */
+    private int score = 0;
+
+    /**
+     * <em>true</em> when score has changed.
+     */
+    private boolean scoreChanged = false;
+
+    /**
      * Main constructor
      */
     public LModel(){
@@ -169,5 +179,47 @@ public class LModel {
      */
     public boolean hasCurrentPiece(){
         return this.currentPiece != null;
+    }
+
+    /**
+     * Score getter
+     * @return int
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * Score setter
+     * @param score int
+     */
+    public void setScore(int score) {
+        this.score = score;
+        setScoreChanged(true);
+    }
+
+    /**
+     * Inscrease score by given int.
+     * @param pointsToAdd int Score to add to.
+     */
+    public void setScoreAdd(int pointsToAdd){
+        this.score += pointsToAdd;
+        setScoreChanged(true);
+    }
+
+    /**
+     * Score changed setter
+     * @param state boolean
+     */
+    public void setScoreChanged(boolean state){
+        this.scoreChanged = state;
+    }
+
+    /**
+     * Score changed getter
+     * @return boolean
+     */
+    public boolean hasScoreChanged(){
+        return scoreChanged;
     }
 }

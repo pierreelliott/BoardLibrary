@@ -154,6 +154,7 @@ public class Model extends LModel {
                         new LPosition(WIDTH -1, i),
                         new LPosition(0,1)
                 );
+                setScoreAdd(1);
             }
         }
     }
