@@ -34,6 +34,7 @@ public class Controller extends LController {
             ((Model) lModel).play();
         refresh();
         if(lModel.isFinished()){
+            notifyObjects();
             System.out.println("##################");
             System.out.println("# Game finished. #");
             System.out.println("##################");

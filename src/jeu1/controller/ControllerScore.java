@@ -2,6 +2,7 @@ package jeu1.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import mainlib.controller.LNotifiable;
@@ -29,8 +30,15 @@ public class ControllerScore implements Initializable, LNotifiable {
         scoreLabelID.setText("Score : " + lModel.getScore());
     }
 
-    public void whenNotified(){
+    public void whenNotified(){ //TODO faire proprement cette fonction.
         System.out.println("Notified");
         scoreLabelID.setText("Score : " + lModel.getScore());
+
+        // Exemple of use
+        if(lModel.isFinished()){
+            Label finishedlabel = new Label("Game Over !");
+            finishedlabel.setPadding(new Insets(15));
+            scoreAnchorID.getChildren().add(finishedlabel);
+        }
     }
 }
