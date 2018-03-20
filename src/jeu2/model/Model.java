@@ -73,11 +73,11 @@ public class Model extends LModel {
                 base = new LPosition(1,0);
                 break;
             case P6:
-                list.add(new LPosition(0,0));
-                list.add(new LPosition(0,-1));
+                list.add(new LPosition(1,1));
                 list.add(new LPosition(1,0));
-                list.add(new LPosition(-1,0));
-                base = new LPosition(0,0);
+                list.add(new LPosition(2,1));
+                list.add(new LPosition(0,1));
+                base = new LPosition(1,1);
                 break;
             case P7:
                 list.add(new LPosition(0,0));
@@ -87,18 +87,18 @@ public class Model extends LModel {
                 base = new LPosition(1,0);
                 break;
             case P8:
-                list.add(new LPosition(0,0));
-                list.add(new LPosition(1,0));
+                list.add(new LPosition(0,1));
+                list.add(new LPosition(1,1));
+                list.add(new LPosition(2,1));
                 list.add(new LPosition(2,0));
-                list.add(new LPosition(2,-1));
-                base = new LPosition(1,0);
+                base = new LPosition(1,1);
                 break;
             case P9:
-                list.add(new LPosition(0,0));
+                list.add(new LPosition(0,1));
+                list.add(new LPosition(1,1));
                 list.add(new LPosition(1,0));
-                list.add(new LPosition(1,-1));
-                list.add(new LPosition(2,-1));
-                base = new LPosition(1,0);
+                list.add(new LPosition(2,0));
+                base = new LPosition(1,1);
                 break;
             case P10:
                 list.add(new LPosition(0,0));
@@ -173,20 +173,20 @@ public class Model extends LModel {
                 base = new LPosition(0,1);
                 break;
             case P19:
-                list.add(new LPosition(0,0));
-                list.add(new LPosition(0,-1));
-                list.add(new LPosition(1,-1));
-                list.add(new LPosition(-1,0));
+                list.add(new LPosition(1,1));
+                list.add(new LPosition(1,0));
+                list.add(new LPosition(2,0));
                 list.add(new LPosition(0,1));
-                base = new LPosition(0,0);
+                list.add(new LPosition(1,2));
+                base = new LPosition(1,1);
                 break;
             case P20:
-                list.add(new LPosition(0,0));
-                list.add(new LPosition(0,-1));
+                list.add(new LPosition(1,1));
                 list.add(new LPosition(1,0));
-                list.add(new LPosition(-1,0));
+                list.add(new LPosition(2,1));
                 list.add(new LPosition(0,1));
-                base = new LPosition(0,0);
+                list.add(new LPosition(1,2));
+                base = new LPosition(1,1);
                 break;
             case P21:
                 list.add(new LPosition(1,0));
