@@ -1,11 +1,14 @@
 package mainlib.view;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import mainlib.controller.LController;
 import mainlib.model.LModel;
+
+import java.io.IOException;
 
 /**
  * Main class to initialize JavaFX extends Application.
@@ -58,6 +61,46 @@ public class LView extends Application {
      * @see #start(Stage)
      */
     public LView(){
+    }
+
+    /**
+     * Load default object hierarchy FXML.
+     * @param controller Default controller for LView javafx
+     * @param <T> The loaded object hierarchy type.
+     * @return The loaded object hierarchy.
+     * @throws IOException
+     * @see #loadFxml(String, Object)
+     */
+    public <T> T loadDefaultFxml(Object controller) throws IOException {
+        return loadFxml(DEFAULTRES, controller);
+    }
+
+    /**
+     * Loads an object hierarchy from a FXML document.
+     * @param resURL URL source for FXML document.
+     * @param <T> The loaded object hierarchy type.
+     * @return The loaded object hierarchy.
+     * @throws IOException
+     * @see #loadFxml(String, Object)
+     */
+    public <T> T loadFxml(String resURL) throws IOException {
+        return loadFxml(resURL, null);
+    }
+
+    /**
+     * Loads an object hierarchy from a FXML document and set a controller.
+     * @param resURL URL source for FXML document.
+     * @param controller Controller
+     * @param <T> The loaded object hierarchy type.
+     * @return The loaded object hierarchy.
+     * @throws IOException
+     */
+    public <T> T loadFxml(String resURL, Object controller) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(resURL));
+        if(controller != null)
+            fxmlLoader.setController(controller);
+        return fxmlLoader.load();
     }
 
     @Override

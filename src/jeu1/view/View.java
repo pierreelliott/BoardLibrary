@@ -24,15 +24,18 @@ public class View extends LView {
         controller.addNotifiableObject(controllerScore);
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(DEFAULTRES));
-        fxmlLoader.setController(controller);
-        AnchorPane anchorPaneGrid = fxmlLoader.load();
 
-        FXMLLoader fxmlLoaderScore = new FXMLLoader();
-        fxmlLoaderScore.setLocation(getClass().getResource("/jeu1/fxml/ViewScore.fxml"));
-        fxmlLoaderScore.setController(controllerScore);
-        AnchorPane anchorPaneScore = fxmlLoaderScore.load();
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource(DEFAULTRES));
+//        fxmlLoader.setController(controller);
+//        AnchorPane anchorPaneGrid = fxmlLoader.load();
+        AnchorPane anchorPaneGrid = loadDefaultFxml(controller);
+
+//        FXMLLoader fxmlLoaderScore = new FXMLLoader();
+//        fxmlLoaderScore.setLocation(getClass().getResource("/jeu1/fxml/ViewScore.fxml"));
+//        fxmlLoaderScore.setController(controllerScore);
+//        AnchorPane anchorPaneScore = fxmlLoaderScore.load();
+        AnchorPane anchorPaneScore = loadFxml("/jeu1/fxml/ViewScore.fxml", controllerScore);
 
         anchorPaneGrid.setPrefWidth(ratio*10);
         anchorPaneScore.setPrefWidth(sizeScore);
