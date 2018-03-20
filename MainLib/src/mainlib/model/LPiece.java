@@ -108,6 +108,15 @@ public class LPiece {
     }
 
     /**
+     * Place the piece at a precise position (based on the position of <em>base</em>
+     * @param p
+     */
+    public void placeAt(LPosition p) {
+        LPosition vector = new LPosition(p.getPosX()-base.getPosX(), p.getPosY()-base.getPosY());
+        this.move(vector);
+    }
+
+    /**
      * <em>true</em> if positions if empty.
      * @return <em>true</em> if positions if empty.
      */
