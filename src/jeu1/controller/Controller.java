@@ -1,45 +1,22 @@
 package jeu1.controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.input.KeyEvent;
-import javafx.util.Duration;
 import jeu1.model.Model;
 import mainlib.controller.LController;
 
 public class Controller extends LController {
 
-    private boolean pause;
-    private Timeline timeline;
-
     public Controller(Model model) throws Exception {
         super(model);
         setCellPadding(2);
 
-        pause = false;
-
-        timeline = new Timeline(new KeyFrame(Duration.seconds(0.5D), event -> timing()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        model.addObserver(this);
     }
 
     @Override
     protected void preInitialize(){
         super.preInitialize();
         gridID.setGridLinesVisible(false);
-    }
-
-    private void timing() {
-        if(!pause)
-            ((Model) lModel).play();
-        refresh();
-        if(lModel.isFinished()){
-            notifyObjects();
-            System.out.println("##################");
-            System.out.println("# Game finished. #");
-            System.out.println("##################");
-            timeline.stop();
-        }
     }
 
 
@@ -60,7 +37,7 @@ public class Controller extends LController {
                 ((Model) lModel).rotate();
                 break;
             case SPACE: //FIXME enlever ce cheat
-                pause = !pause;
+                ((Model) lModel).togglePause();
                 break;
         }
         refresh();
