@@ -1,6 +1,5 @@
 package jeu1.view;
 
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -21,23 +20,11 @@ public class View extends LView {
         Controller controller = new Controller(model);
 
         ControllerScore controllerScore = new ControllerScore(model);
-        controller.addNotifiableObject(controllerScore);
 
-
-
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        fxmlLoader.setLocation(getClass().getResource(DEFAULTRES));
-//        fxmlLoader.setController(controller);
-//        AnchorPane anchorPaneGrid = fxmlLoader.load();
         AnchorPane anchorPaneGrid = loadDefaultFxml(controller);
-
-//        FXMLLoader fxmlLoaderScore = new FXMLLoader();
-//        fxmlLoaderScore.setLocation(getClass().getResource("/jeu1/fxml/ViewScore.fxml"));
-//        fxmlLoaderScore.setController(controllerScore);
-//        AnchorPane anchorPaneScore = fxmlLoaderScore.load();
-        AnchorPane anchorPaneScore = loadFxml("/jeu1/fxml/ViewScore.fxml", controllerScore);
-
         anchorPaneGrid.setPrefWidth(ratio*10);
+
+        AnchorPane anchorPaneScore = loadFxml("/jeu1/fxml/ViewScore.fxml", controllerScore);
         anchorPaneScore.setPrefWidth(sizeScore);
 
         HBox hbox = new HBox(10, anchorPaneGrid, anchorPaneScore);
@@ -47,5 +34,7 @@ public class View extends LView {
         setlModel(model);
         setlController(controller);
         setScene(scene);
+
+        model.start();
     }
 }

@@ -12,9 +12,35 @@ public class Model extends LModel {
 
     private int WIDTH = 10;
     private int HEIGHT = 20;
+    private boolean pause = false;
+    private int speedTime = 500;
+
+    private Thread tprocess;
 
     public Model() throws Exception {
         reset();
+    }
+
+    public void start(){
+        tprocess = new Thread(() -> {
+//            System.out.println("Thread started !");
+            while(!isFinished()){
+                if(!pause && !isFinished())
+                    play();
+                setChanged();
+                notifyObservers();
+//                System.out.println("Thread ping !");
+                try {
+                    Thread.sleep(speedTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("##################");
+            System.out.println("# Game finished. #");
+            System.out.println("##################");
+        });
+        tprocess.start();
     }
 
     public void reset() throws Exception {
@@ -157,5 +183,9 @@ public class Model extends LModel {
                 setScoreAdd(1);
             }
         }
+    }
+
+    public void togglePause(){
+        this.pause = !pause;
     }
 }

@@ -14,7 +14,7 @@ import mainlib.model.LPosition;
 import mainlib.view.LView;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 /**
@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
  * @see LPiece
  * @see LPosition
  */
-public class LController implements Initializable {
+public class LController implements Initializable, java.util.Observer {
 
     /**
      * AnchorPane id from fxml
@@ -78,11 +78,6 @@ public class LController implements Initializable {
     private Rectangle[][] rectangles;
 
     /**
-     * List of notifiable controllers
-     */
-    private ArrayList<LNotifiable> notifiableObjects;
-
-    /**
      * Constructor
      * @param lModel Model to use.
      * @throws Exception If board into the model is not initialized.
@@ -92,7 +87,6 @@ public class LController implements Initializable {
         if(lModel.getBoard() == null){
             throw new Exception("Board not initialized on Model");
         }
-        this.notifiableObjects = new ArrayList<>();
         this.lModel = lModel;
         GRID_SIZE_ROW = lModel.getBoard().getHeight();
         GRID_SIZE_COL = lModel.getBoard().getWidth();
@@ -169,10 +163,6 @@ public class LController implements Initializable {
             for(int col = 0; col < GRID_SIZE_COL; col++){
                 refreshCell(row, col);
             }
-        }
-        if(lModel.hasScoreChanged()){
-            notifyObjects();
-            lModel.setScoreChanged(false);
         }
     }
 
@@ -262,20 +252,8 @@ public class LController implements Initializable {
     public void handleKeyTyped(KeyEvent event) {
     }
 
-    /**
-     * Add an object notifiable
-     * @param o Object
-     */
-    public void addNotifiableObject(LNotifiable o){
-        notifiableObjects.add(o);
-    }
-
-    /**
-     * Notify every object notifiable
-     */
-    public void notifyObjects(){
-        for (LNotifiable o : notifiableObjects) {
-            o.whenNotified();
-        }
+    @Override
+    public void update(Observable o, Object arg) {
+        refresh();
     }
 }

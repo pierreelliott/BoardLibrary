@@ -1,5 +1,7 @@
 package mainlib.model;
 
+import java.util.Observable;
+
 /**
  * The LModel class is the main model class.
  * It is directly instantiated by the LView in order to coordinate front-end functions.
@@ -16,7 +18,7 @@ package mainlib.model;
  * @see LPosition
  * @see LPiece
  */
-public class LModel {
+public class LModel extends Observable {
 
     /**
      * Instance of LBoard containing pieces.
@@ -53,11 +55,6 @@ public class LModel {
      * Game score
      */
     private int score = 0;
-
-    /**
-     * <em>true</em> when score has changed.
-     */
-    private boolean scoreChanged = false;
 
     /**
      * Main constructor
@@ -195,7 +192,7 @@ public class LModel {
      */
     public void setScore(int score) {
         this.score = score;
-        setScoreChanged(true);
+        setChanged();
     }
 
     /**
@@ -204,22 +201,6 @@ public class LModel {
      */
     public void setScoreAdd(int pointsToAdd){
         this.score += pointsToAdd;
-        setScoreChanged(true);
-    }
-
-    /**
-     * Score changed setter
-     * @param state boolean
-     */
-    public void setScoreChanged(boolean state){
-        this.scoreChanged = state;
-    }
-
-    /**
-     * Score changed getter
-     * @return boolean
-     */
-    public boolean hasScoreChanged(){
-        return scoreChanged;
+        setChanged();
     }
 }
