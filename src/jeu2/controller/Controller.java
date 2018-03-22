@@ -3,7 +3,6 @@ package jeu2.controller;
 import javafx.scene.input.KeyEvent;
 import jeu2.model.Model;
 import mainlib.controller.LController;
-import mainlib.model.LPiece;
 import mainlib.model.LPosition;
 
 public class Controller extends LController {
@@ -23,8 +22,11 @@ public class Controller extends LController {
     @Override
     protected void cellMouseClicked(int row, int col) {
         //System.out.println("Cell clicked at " + row + "," + col);
-        ((Model) lModel).selectPiece(new LPosition(col, row));
-        System.out.println("Sélectionné !");
+        LPosition pos = new LPosition(col, row);
+
+        if(((Model) lModel).hasCurrentPiece()) {
+            ((Model) lModel).placeAt(pos, true);
+        }
         refresh();
     }
 
@@ -57,7 +59,7 @@ public class Controller extends LController {
 
     public void previewPiece(LPosition pos) {
         if(((Model) lModel).hasCurrentPiece()) {
-            ((Model) lModel).safelyPlaceAt(pos);
+            ((Model) lModel).placeAt(pos, false);
         }
     }
 }

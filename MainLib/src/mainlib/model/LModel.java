@@ -95,6 +95,22 @@ public class LModel extends Observable {
     }
 
     /**
+     * Safely place a piece at a specific position
+     * @param piece LPiece to place
+     * @param position LPosition to place the piece at
+     * @return <em>true</em> if no error occurred.
+     */
+    public boolean placeSafely(LPiece piece, LPosition position){
+        if(piece == null)
+            return false;
+        if(lBoard.canPlaceAt(position, piece)) {
+            piece.placeAt(position);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Process a safely rotation on a pice.
      * @param piece LPiece to rotate
      * @param trigo <em>true</em> to 90 degrees inverse-clockwise rotation.

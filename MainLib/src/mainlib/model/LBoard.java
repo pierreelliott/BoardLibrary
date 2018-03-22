@@ -240,6 +240,18 @@ public class LBoard {
     }
 
     /**
+     * Check if a piece can be placed at a specific position.
+     * @param pos Absolute LPosition where the piece should be placed.
+     * @param p LPiece to place.
+     * @return <em>true</em> if the piece can be moved.
+     */
+    public boolean canPlaceAt(LPosition pos, LPiece p) {
+        LPiece hypo = new LPiece(p);
+        hypo.placeAt(pos);
+        return !isCollision(p, hypo);
+    }
+
+    /**
      * Check for a already placed piece, if there is a collision when moved.
      * @param lPiece LPiece Already placed piece.
      * @param hypoLPiece Same piece already moved by hypothetical movements.

@@ -12,7 +12,7 @@ import mainlib.view.LView;
 public class View extends LView {
 
     public View() throws Exception {
-        setTitle("Rush Hour");
+        setTitle("Blokus");
 
         int ratio = 35;
         int sizeScore = 200;
@@ -21,7 +21,6 @@ public class View extends LView {
         Controller controller = new Controller(model);
 
         ControllerScore controllerScore = new ControllerScore(model);
-        controller.addNotifiableObject(controllerScore);
 
 
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -30,16 +29,16 @@ public class View extends LView {
         AnchorPane anchorPaneGrid = fxmlLoader.load();
 
         FXMLLoader fxmlLoaderScore = new FXMLLoader();
-        fxmlLoaderScore.setLocation(getClass().getResource("/jeu1/fxml/ViewScore.fxml"));
+        fxmlLoaderScore.setLocation(getClass().getResource("/jeu2/fxml/ViewScore.fxml"));
         fxmlLoaderScore.setController(controllerScore);
         AnchorPane anchorPaneScore = fxmlLoaderScore.load();
 
-        anchorPaneGrid.setPrefWidth(ratio*10);
+        anchorPaneGrid.setPrefWidth(ratio*20);
         anchorPaneScore.setPrefWidth(sizeScore);
 
         HBox hbox = new HBox(10, anchorPaneGrid, anchorPaneScore);
 
-        Scene scene = new Scene(hbox, ratio*10 + sizeScore, ratio*20);
+        Scene scene = new Scene(hbox, ratio*20 + sizeScore +10, ratio*20);
 
         setlModel(model);
         setlController(controller);

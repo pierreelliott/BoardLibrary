@@ -7,15 +7,20 @@ import mainlib.model.LPiece;
 import mainlib.model.LPosition;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Model extends LModel {
 
-    private int WIDTH = 10;
+    private int WIDTH = 20;
     private int HEIGHT = 20;
+    private PlayerEnum player;
+    private List<PlayerEnum> eliminated;
 
     public Model() throws Exception {
         LBoard board = new LBoard(WIDTH,HEIGHT);
         setBoard(board);
+        player = PlayerEnum.BLUE;
+        eliminated = new ArrayList<>();
     }
 
     public void spawnPiece() {
@@ -32,10 +37,12 @@ public class Model extends LModel {
         return p;
     }
 
-    public LPiece generateRandomPiece() {
+    public LPiece generateRandomPiece(Color color) {
         int rand = (int)(Math.random()*1000*(PieceEnum.values().length))/1000;
-        return generatePiece(PieceEnum.values()[rand]);
+        return generatePiece(PieceEnum.values()[rand], color);
     }
+
+    public LPiece generateRandomPiece() { return generateRandomPiece(Color.BLACK); }
 
     public LPiece generatePiece(PieceEnum p) { return generatePiece(p, Color.BLACK); }
 
@@ -205,8 +212,11 @@ public class Model extends LModel {
 
     }
 
-    public void safelyPlaceAt(LPosition p) {
-        getCurrentPiece().placeAt(p);
+    public void placeAt(LPosition p, boolean permanent) {
+        boolean placed = placeSafely(getCurrentPiece(), p);
+        if(permanent && placed) {
+            spawnPiece();
+        }
     }
 
     public void moveRight(){
@@ -228,4 +238,18 @@ public class Model extends LModel {
     public void rotatePiece(){ rotateSafely(getCurrentPiece(), true); }
 
     public void selectPiece(LPosition pos) { setCurrentPiece(getBoard().getPiece(pos)); }
+
+    public void nextPlayer() {
+        player = player.next();
+        if(eliminated.size() < 4 && eliminated.contains(player)) {
+            nextPlayer();
+        }
+    }
+
+    public void eliminate(PlayerEnum p) {
+        eliminated.add(p);
+        if(eliminated.size() >= 4) {
+            setFinished(true);
+        }
+    }
 }
