@@ -5,13 +5,12 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import mainlib.controller.LNotifiable;
 import mainlib.model.LModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerScore implements Initializable, LNotifiable {
+public class ControllerScore implements Initializable {
 
     @FXML
     AnchorPane scoreAnchorID;

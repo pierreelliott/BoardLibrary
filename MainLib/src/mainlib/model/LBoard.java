@@ -100,6 +100,8 @@ public class LBoard {
      */
     public LPiece getPiece(LPosition p) {
         for(LPiece piece : pieces) {
+            if(piece == null)
+                continue;
             if(piece.isOnPosition(p)) {
                 return piece;
             }

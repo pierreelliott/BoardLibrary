@@ -1,6 +1,7 @@
 package jeu2.controller;
 
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import jeu2.model.Model;
 import mainlib.controller.LController;
 import mainlib.model.LPosition;
@@ -16,15 +17,17 @@ public class Controller extends LController {
 
     protected void preInitialize(){
         super.preInitialize();
-        gridID.setGridLinesVisible(true);
+        setGridLinesVisible(true);
+//        setPaddingColor(Color.RED);
+//        gridID.setGridLinesVisible(false);
     }
 
     @Override
     protected void cellMouseClicked(int row, int col) {
-        //System.out.println("Cell clicked at " + row + "," + col);
+//        System.out.println("Cell clicked at " + row + "," + col);
         LPosition pos = new LPosition(col, row);
 
-        if(((Model) lModel).hasCurrentPiece()) {
+        if(lModel.hasCurrentPiece()) {
             ((Model) lModel).placeAt(pos, true);
         }
         refresh();
@@ -58,7 +61,7 @@ public class Controller extends LController {
     }
 
     public void previewPiece(LPosition pos) {
-        if(((Model) lModel).hasCurrentPiece()) {
+        if(lModel.hasCurrentPiece()) {
             ((Model) lModel).placeAt(pos, false);
         }
     }

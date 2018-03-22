@@ -78,6 +78,16 @@ public class LController implements Initializable, java.util.Observer {
     private Rectangle[][] rectangles;
 
     /**
+     * Determine if the grid line will be visible.
+     */
+    private boolean gridLinesVisible = false;
+
+    /**
+     * Padding color
+     */
+    private Color paddingColor = Color.WHITE;
+
+    /**
      * Constructor
      * @param lModel Model to use.
      * @throws Exception If board into the model is not initialized.
@@ -140,15 +150,23 @@ public class LController implements Initializable, java.util.Observer {
      * @see #refreshCell(int, int)
      */
     protected void creatingCellSquares(int row, int col){
+
+        Rectangle squareBackground = new Rectangle();
+        squareBackground.setFill(paddingColor);
         Rectangle square = new Rectangle();
 
+        gridID.add(squareBackground, col, row);
         gridID.add(square, col, row);
+        squareBackground.widthProperty().bind(gridID.widthProperty().divide(GRID_SIZE_COL).subtract(gridLinesVisible ? 1 : 0));
+        squareBackground.heightProperty().bind(gridID.heightProperty().divide(GRID_SIZE_ROW).subtract(gridLinesVisible ? 1 : 0));
+
         square.widthProperty().bind(gridID.widthProperty().divide(GRID_SIZE_COL).subtract(cellPadding));
         square.heightProperty().bind(gridID.heightProperty().divide(GRID_SIZE_ROW).subtract(cellPadding));
 
         square.setOnMouseClicked(event -> cellMouseClicked(row, col));
-        square.setOnMouseEntered(event -> cellMouseEnter(row, col));
-        square.setOnMouseExited(event -> cellMouseExited(row, col));
+        squareBackground.setOnMouseClicked(event -> cellMouseClicked(row, col));
+        squareBackground.setOnMouseEntered(event -> cellMouseEnter(row, col));
+        squareBackground.setOnMouseExited(event -> cellMouseExited(row, col));
 
         rectangles[row][col] = square;
         refreshCell(row, col);
@@ -255,5 +273,39 @@ public class LController implements Initializable, java.util.Observer {
     @Override
     public void update(Observable o, Object arg) {
         refresh();
+    }
+
+
+    /**
+     * Set grid lines visibility
+     * @param gridLinesVisible boolean
+     */
+    public void setGridLinesVisible(boolean gridLinesVisible) {
+        this.gridLinesVisible = gridLinesVisible;
+        this.gridID.setGridLinesVisible(gridLinesVisible);
+    }
+
+    /**
+     * Return the grid lines visibility
+     * @return <em>true</em> if grid lines are visible
+     */
+    public boolean isGridLinesVisible() {
+        return gridLinesVisible;
+    }
+
+    /**
+     * Return the padding color background
+     * @return Color
+     */
+    public Color getPaddingColor() {
+        return paddingColor;
+    }
+
+    /**
+     * Padding color background setter
+     * @param paddingColor Color
+     */
+    public void setPaddingColor(Color paddingColor) {
+        this.paddingColor = paddingColor;
     }
 }

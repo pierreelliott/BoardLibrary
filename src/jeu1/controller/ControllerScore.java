@@ -40,7 +40,6 @@ public class ControllerScore implements Initializable, java.util.Observer {
     @Override
     public void update(Observable o, Object arg) {
         Platform.runLater(() -> {
-            System.out.println("Notified");
             scoreLabelID.setText("Score : " + lModel.getScore());
             stateLabelID.setText("");
 
