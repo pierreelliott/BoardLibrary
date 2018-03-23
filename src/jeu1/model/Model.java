@@ -35,6 +35,8 @@ public class Model extends LModel {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                if(isExit())
+                    break;
             }
             System.out.println("##################");
             System.out.println("# Game finished. #");

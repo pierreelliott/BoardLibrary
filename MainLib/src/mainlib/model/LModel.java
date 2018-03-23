@@ -57,6 +57,11 @@ public class LModel extends Observable {
     private int score = 0;
 
     /**
+     * <em>true</em> for exiting.
+     */
+    private boolean exit = false;
+
+    /**
      * Main constructor
      */
     public LModel(){
@@ -218,5 +223,21 @@ public class LModel extends Observable {
     public void setScoreAdd(int pointsToAdd){
         this.score += pointsToAdd;
         setChanged();
+    }
+
+    /**
+     * Check if platform exited
+     * @return <em>true</em> to exit
+     */
+    public boolean isExit() {
+        return exit;
+    }
+
+    /**
+     * Set exit state
+     * @param exit boolean <em>true</em> for exiting
+     */
+    public void setExit(boolean exit) {
+        this.exit = exit;
     }
 }

@@ -114,6 +114,8 @@ public class LView extends Application {
         primaryStage.setScene(this.scene);
         primaryStage.show();
         loadHandlers();
+
+        primaryStage.setOnCloseRequest(e -> lModel.setExit(true));
     }
 
     /**
