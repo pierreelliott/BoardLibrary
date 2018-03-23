@@ -14,13 +14,6 @@ public class Controller extends LController {
     }
 
     @Override
-    protected void preInitialize(){
-        super.preInitialize();
-        gridID.setGridLinesVisible(false);
-    }
-
-
-    @Override
     public void handleKeyPressed(KeyEvent event){
 //        System.out.println(event.getCode());
         switch (event.getCode()) {

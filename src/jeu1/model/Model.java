@@ -17,6 +17,8 @@ public class Model extends LModel {
 
     private Thread tprocess;
 
+    private LPiece nextPiece = null;
+
     public Model() throws Exception {
         reset();
     }
@@ -51,7 +53,10 @@ public class Model extends LModel {
     }
 
     public void spawnPiece() {
-        setCurrentPiece(spawnPiece(generateRandomPiece()));
+        if(nextPiece == null)
+            nextPiece = generateRandomPiece();
+        setCurrentPiece(spawnPiece(nextPiece));
+        nextPiece = generateRandomPiece();
         if(!hasCurrentPiece())
             setFinished(true);
     }
@@ -189,5 +194,9 @@ public class Model extends LModel {
 
     public void togglePause(){
         this.pause = !pause;
+    }
+
+    public LPiece getNextPiece(){
+        return nextPiece;
     }
 }

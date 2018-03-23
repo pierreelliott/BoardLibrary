@@ -11,7 +11,7 @@ package mainlib.model;
  * @version 1.0
  * @since   2018-01-17
  */
-public class LPosition {
+public class LPosition implements Cloneable{
 
     /**
      * Position X
@@ -38,8 +38,9 @@ public class LPosition {
      * @param lPosition LPosition
      */
     public LPosition(LPosition lPosition){
-        posX = lPosition.getPosX();
-        posY = lPosition.getPosY();
+        super();
+        posX = lPosition.posX;
+        posY = lPosition.posY;
     }
 
     /**
@@ -49,8 +50,8 @@ public class LPosition {
      * @param pSecond LPosition
      */
     public LPosition(LPosition pFirst, LPosition pSecond) {
-        posX = pFirst.getPosX() + pSecond.getPosX();
-        posY = pFirst.getPosY() + pSecond.getPosY();
+        posX = pFirst.posX + pSecond.posX;
+        posY = pFirst.posY + pSecond.posY;
     }
 
     /**
@@ -75,8 +76,8 @@ public class LPosition {
      * @param p LPosition
      */
     public void translate(LPosition p) {
-        posX += p.getPosX();
-        posY += p.getPosY();
+        posX += p.posX;
+        posY += p.posY;
     }
 
     /**
@@ -126,11 +127,11 @@ public class LPosition {
      * @see #rotate90Trigo()
      */
     public void rotate90Trigo(LPosition centerPos){
-        posX -= centerPos.getPosX();
-        posY -= centerPos.getPosY();
+        posX -= centerPos.posX;
+        posY -= centerPos.posY;
         rotate90Trigo();
-        posX += centerPos.getPosX();
-        posY += centerPos.getPosY();
+        posX += centerPos.posX;
+        posY += centerPos.posY;
     }
 
     /**
@@ -148,11 +149,11 @@ public class LPosition {
      * @see #rotate90AntiTrigo()
      */
     public void rotate90AntiTrigo(LPosition centerPos){
-        posX -= centerPos.getPosX();
-        posY -= centerPos.getPosY();
+        posX -= centerPos.posX;
+        posY -= centerPos.posY;
         rotate90AntiTrigo();
-        posX += centerPos.getPosX();
-        posY += centerPos.getPosY();
+        posX += centerPos.posX;
+        posY += centerPos.posY;
     }
 
     @Override
