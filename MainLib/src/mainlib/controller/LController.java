@@ -54,12 +54,12 @@ public class LController implements Initializable, java.util.Observer {
     /**
      * Number of row for the grid
      */
-    private int GRID_SIZE_ROW;
+    protected int GRID_SIZE_ROW;
 
     /**
      * Number of column for the grid
      */
-    private int GRID_SIZE_COL;
+    protected int GRID_SIZE_COL;
 
     /**
      * Padding cell for color of piece.
