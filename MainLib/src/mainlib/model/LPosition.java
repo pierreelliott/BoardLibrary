@@ -156,6 +156,20 @@ public class LPosition implements Cloneable{
         posY += centerPos.posY;
     }
 
+    /**
+     * Multiply X by -1
+     */
+    public void flipX(){
+        posX = -posX;
+    }
+
+    /**
+     * Multiply Y by -1
+     */
+    public void flipY(){
+        posY = -posY;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

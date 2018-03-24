@@ -254,6 +254,18 @@ public class LBoard {
     }
 
     /**
+     * Check if a Piece can be flipped.
+     * @param p Piece to check
+     * @param axeX <em>true</em> for X axe. Y axe otherwise.
+     * @return <em>true</em> if the piece can be flipped.
+     */
+    public boolean canFlip(LPiece p, boolean axeX){
+        LPiece hypo = new LPiece(p);
+        hypo.flip(axeX);
+        return !isCollision(p, hypo);
+    }
+
+    /**
      * Check for a already placed piece, if there is a collision when moved.
      * @param lPiece LPiece Already placed piece.
      * @param hypoLPiece Same piece already moved by hypothetical movements.
