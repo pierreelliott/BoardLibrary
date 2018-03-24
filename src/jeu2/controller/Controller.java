@@ -10,32 +10,26 @@ public class Controller extends LController {
     public Controller(Model model) throws Exception {
         super(model);
         setCellPadding(5);
-
-//        setCellDefaultColor(Color.RED);
-        model.spawnPiece();
     }
 
     protected void preInitialize(){
         super.preInitialize();
         setGridLinesVisible(true);
-//        setPaddingColor(Color.RED);
-//        gridID.setGridLinesVisible(false);
     }
 
     @Override
     protected void cellMouseClicked(int row, int col) {
-//        System.out.println("Cell clicked at " + row + "," + col);
-        LPosition pos = new LPosition(col, row);
-
-        if(lModel.hasCurrentPiece()) {
-            ((Model) lModel).placeAt(pos, true);
-        }
+        ((Model) lModel).click(new LPosition(col, row));
         refresh();
     }
 
     protected void cellMouseEnter(int row, int col) {
-        previewPiece(new LPosition(col, row));
+        ((Model) lModel).placeAt(new LPosition(col, row));
         refresh();
+    }
+
+    protected void cellMouseExited(int row, int col) {
+        ((Model) lModel).removeCurrentPiece();
     }
 
     @Override
@@ -64,11 +58,5 @@ public class Controller extends LController {
                 break;
         }
         refresh();
-    }
-
-    public void previewPiece(LPosition pos) {
-        if(lModel.hasCurrentPiece()) {
-            ((Model) lModel).placeAt(pos, false);
-        }
     }
 }

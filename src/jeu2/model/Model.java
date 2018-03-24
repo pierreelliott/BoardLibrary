@@ -23,29 +23,6 @@ public class Model extends LModel {
         eliminated = new ArrayList<>();
     }
 
-    public void spawnPiece() {
-        setCurrentPiece(spawnPiece(generateRandomPiece()));
-    }
-
-    public LPiece spawnPiece(LPiece p) {
-        getBoard().placeAtTopCenter(p);
-        try {
-            getBoard().addPiece(p);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return p;
-    }
-
-    public Piece generateRandomPiece(Color color) {
-        int rand = (int)(Math.random()*1000*(PieceEnum.values().length))/1000;
-        return generatePiece(PieceEnum.values()[rand], color);
-    }
-
-    public Piece generateRandomPiece() { return generateRandomPiece(Color.BLACK); }
-
-    public Piece generatePiece(PieceEnum p) { return generatePiece(p, Color.BLACK); }
-
     public Piece generatePiece(PieceEnum p, Color color) {
         ArrayList<LPosition> list = new ArrayList<>();
         LPosition base = null;
@@ -230,15 +207,38 @@ public class Model extends LModel {
         return new Piece(list, base, color, startPos);
     }
 
-    public void play() {
-
+    public boolean placeAt(LPosition p) {
+        if(!hasCurrentPiece())
+            return false;
+        try {
+            getBoard().addPiece(getCurrentPiece());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        boolean placed = placeSafely(getCurrentPiece(), p);
+        if(!placed)
+            getBoard().removePiece(getCurrentPiece());
+        return placed;
     }
 
-    public void placeAt(LPosition p, boolean permanent) {
+    public void click(LPosition p){
+        if(!hasCurrentPiece())
+            return;
         boolean placed = placeSafely(getCurrentPiece(), p);
-        if(permanent && placed) {
-            spawnPiece();
+        if(!placed){
+            getBoard().removePiece(getCurrentPiece());
+            return;
         }
+
+        getBoard().removePiece(getCurrentPiece());
+        try {
+            getBoard().addPiece(new LPiece(getCurrentPiece()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        resetCurrentPiece();
+        setChanged();
+        notifyObservers();
     }
 
     public void moveRight(){
@@ -281,5 +281,11 @@ public class Model extends LModel {
 
     public void flipYPiece() {
         flipSafely(getCurrentPiece(), false);
+    }
+
+    public void removeCurrentPiece(){
+        if(hasCurrentPiece()){
+            getBoard().removePiece(getCurrentPiece());
+        }
     }
 }

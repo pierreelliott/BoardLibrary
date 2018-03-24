@@ -4,6 +4,8 @@ import jeu2.model.ModelDeck;
 import mainlib.controller.LController;
 import mainlib.model.LModel;
 
+import java.util.Observable;
+
 public class ControllerDeck extends LController {
 
     private LModel mainModel;
@@ -11,6 +13,19 @@ public class ControllerDeck extends LController {
     public ControllerDeck(LModel mainModel, ModelDeck modelDeck) throws Exception {
         super(modelDeck);
         this.mainModel = mainModel;
+        this.mainModel.addObserver(this);
     }
 
+
+    @Override
+    protected void cellMouseClicked(int row, int col) {
+        ((ModelDeck) lModel).selectPiece(col, row);
+        refresh();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        ((ModelDeck) lModel).removePiece();
+        super.update(o, arg);
+    }
 }
