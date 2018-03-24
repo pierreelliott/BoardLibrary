@@ -237,7 +237,9 @@ public class Model extends LModel {
     public void placeAt(LPosition p, boolean permanent) {
         boolean placed = placeSafely(getCurrentPiece(), p);
         if(permanent && placed) {
-            resetCurrentPiece();
+//            resetCurrentPiece();
+            setChanged();
+            notifyObservers();
         }
     }
 
