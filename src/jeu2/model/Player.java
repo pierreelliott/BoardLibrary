@@ -12,15 +12,15 @@ public class Player {
 
     public Player(Model m, PlayerEnum p) {
         type = p;
-        generateBoard(m);
+//        generateBoard(m);
     }
 
-    private void generateBoard(Model modele) {
-        PieceEnum[] pieces = PieceEnum.values();
-        for(int i = 0; i < pieces.length; i++) {
-            LPiece piece = modele.generatePiece(pieces[i], Color.valueOf(type.toString()));
-            // Place the piece
-            //board.addPiece(piece);
-        }
-    }
+//    private void generateBoard(Model modele) {
+//        PieceEnum[] pieces = PieceEnum.values();
+//        for(int i = 0; i < pieces.length; i++) {
+//            LPiece piece = modele.generatePiece(pieces[i], Color.valueOf(type.toString()));
+//            // Place the piece
+//            //board.addPiece(piece);
+//        }
+//    }
 }

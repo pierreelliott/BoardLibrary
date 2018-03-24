@@ -4,10 +4,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import jeu2.controller.ControllerScore;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import jeu2.controller.Controller;
+import jeu2.controller.ControllerDeck;
 import jeu2.model.Model;
+import jeu2.model.ModelDeck;
 import mainlib.view.LView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class View extends LView {
 
@@ -15,30 +23,44 @@ public class View extends LView {
         setTitle("Blokus");
 
         int ratio = 35;
-        int sizeScore = 200;
+        int spacing = 10;
+        int ratioDecks = 10;
 
         Model model = new Model();
         Controller controller = new Controller(model);
-
-        ControllerScore controllerScore = new ControllerScore(model);
-
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(DEFAULTRES));
         fxmlLoader.setController(controller);
         AnchorPane anchorPaneGrid = fxmlLoader.load();
 
-        FXMLLoader fxmlLoaderScore = new FXMLLoader();
-        fxmlLoaderScore.setLocation(getClass().getResource("/jeu2/fxml/ViewScore.fxml"));
-        fxmlLoaderScore.setController(controllerScore);
-        AnchorPane anchorPaneScore = fxmlLoaderScore.load();
+        ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
+                Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW));
+
+        ArrayList<ModelDeck> modelDecks = new ArrayList<>();
+        for (int i = 0; i<4; i++)
+            modelDecks.add(new ModelDeck(model, colors.get(i)));
+
+        ArrayList<ControllerDeck> controllerDecks = new ArrayList<>();
+        for (int i = 0; i<4; i++)
+            controllerDecks.add(new ControllerDeck(model, modelDecks.get(i)));
+
+        ArrayList<AnchorPane> anchorPaneDecks = new ArrayList<>();
+        for(int i = 0; i<4; i++){
+            anchorPaneDecks.add(loadDefaultFxml(controllerDecks.get(i)));
+            anchorPaneDecks.get(i).setMaxHeight(ratio*ratioDecks);
+            anchorPaneDecks.get(i).setPrefHeight(ratio*ratioDecks);
+            anchorPaneDecks.get(i).setMaxWidth(ratio*ratioDecks);
+            anchorPaneDecks.get(i).setPrefWidth(ratio*ratioDecks);
+        }
 
         anchorPaneGrid.setPrefWidth(ratio*20);
-        anchorPaneScore.setPrefWidth(sizeScore);
 
-        HBox hbox = new HBox(10, anchorPaneGrid, anchorPaneScore);
+        VBox vBoxLeft = new VBox(spacing, anchorPaneDecks.get(0), anchorPaneDecks.get(1));
+        VBox vBoxRight = new VBox(spacing, anchorPaneDecks.get(2), anchorPaneDecks.get(3));
+        HBox hbox = new HBox(spacing, vBoxLeft, anchorPaneGrid, vBoxRight);
 
-        Scene scene = new Scene(hbox, ratio*20 + sizeScore +10, ratio*20);
+        Scene scene = new Scene(hbox, 2*spacing + 2*ratio*ratioDecks + ratio*20, ratio*20);
 
         setlModel(model);
         setlController(controller);
