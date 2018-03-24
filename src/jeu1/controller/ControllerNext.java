@@ -1,6 +1,5 @@
 package jeu1.controller;
 
-import javafx.application.Platform;
 import jeu1.model.ModelNext;
 import mainlib.controller.LController;
 import mainlib.model.LModel;
@@ -23,6 +22,7 @@ public class ControllerNext extends LController{
     @Override
     public void update(Observable o, Object arg) {
         ((ModelNext) lModel).refreshPiece();
-        Platform.runLater(this::refresh);
+        super.update(o, arg);
+//        Platform.runLater(this::refresh);
     }
 }

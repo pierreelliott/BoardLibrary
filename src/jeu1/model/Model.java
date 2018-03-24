@@ -180,7 +180,7 @@ public class Model extends LModel {
     public void fullRow(){
         for(int i = 0 ; i < HEIGHT; i++){
             if(getBoard().isFullLine(new LPosition(0, i), new LPosition(1,0))){
-                System.out.println("Line " + i + " full !");
+//                System.out.println("Line " + i + " full !");
                 getBoard().clearLine(new LPosition(0, i), new LPosition(1,0));
                 getBoard().movePieces(
                         new LPosition(0, 0),
