@@ -133,6 +133,22 @@ public class LModel extends Observable {
     }
 
     /**
+     * Process a safely flip on a piece.
+     * @param piece LPiece to flip
+     * @param axeX <em>true</em> for X axe. Y axe otherwise.
+     * @return <em>true</em> if no error occurred.
+     */
+    public boolean flipSafely(LPiece piece, boolean axeX){
+        if(piece == null)
+            return false;
+        if(lBoard.canFlip(piece, axeX)) {
+            piece.flip(axeX);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Process a relative movement on the piece without checking if it's possible.
      * @param piece LPiece to move.
      * @param position Relative LPosition for movement.

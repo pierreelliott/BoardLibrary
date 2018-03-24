@@ -56,6 +56,12 @@ public class Controller extends LController {
             case SPACE:
                 ((Model) lModel).rotatePiece();
                 break;
+            case L:
+                ((Model) lModel).flipXPiece();
+                break;
+            case M:
+                ((Model) lModel).flipYPiece();
+                break;
         }
         refresh();
     }

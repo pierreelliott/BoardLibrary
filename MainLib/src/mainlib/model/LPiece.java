@@ -195,6 +195,54 @@ public class LPiece {
     }
 
     /**
+     * Flip the piece from X axe.
+     */
+    public void flipX(){
+        flip(true);
+    }
+
+    /**
+     * Flip the piece from Y axe.
+     */
+    public void flipY(){
+        flip(false);
+    }
+
+    /**
+     * Flip the piece from axe.
+     * @param axeX <em>true</em> for X axe. Y axe otherwise.
+     */
+    public void flip(boolean axeX){
+        if(axeX){
+            int maxX = 0;
+            int minX = Integer.MAX_VALUE;
+            for(LPosition pos : positions) {
+                if(pos.getPosX() > maxX)
+                    maxX = pos.getPosX();
+                if(pos.getPosX() < minX)
+                    minX = pos.getPosX();
+                pos.flipX();
+            }
+            for(LPosition pos : positions) {
+                pos.translate(new LPosition(maxX + minX, 0));
+            }
+        } else {
+            int maxY = 0;
+            int minY = Integer.MAX_VALUE;
+            for(LPosition pos : positions) {
+                if(pos.getPosY() > maxY)
+                    maxY = pos.getPosY();
+                if(pos.getPosY() < minY)
+                    minY = pos.getPosY();
+                pos.flipY();
+            }
+            for(LPosition pos : positions) {
+                pos.translate(new LPosition(0, maxY + minY));
+            }
+        }
+    }
+
+    /**
      * Color getter
      * @return Color
      */

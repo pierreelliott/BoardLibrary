@@ -280,4 +280,12 @@ public class Model extends LModel {
             setFinished(true);
         }
     }
+
+    public void flipXPiece() {
+        flipSafely(getCurrentPiece(), true);
+    }
+
+    public void flipYPiece() {
+        flipSafely(getCurrentPiece(), false);
+    }
 }
