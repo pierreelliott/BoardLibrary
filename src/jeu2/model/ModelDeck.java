@@ -7,8 +7,8 @@ import mainlib.model.LModel;
 public class ModelDeck extends LModel {
 
     private Model model;
-    private int WIDTH = 17;
-    private int HEIGHT = 17;
+    private int WIDTH = 15;
+    private int HEIGHT = 15;
 
     private Color color;
 
@@ -18,6 +18,13 @@ public class ModelDeck extends LModel {
         setBoard(board);
         this.model = model;
         this.color = color;
+
+        Piece p;
+        for (PieceEnum pe : PieceEnum.values()) {
+            p = model.generatePiece(pe, color);
+            p.moveToStartPos();
+            getBoard().addPiece(p);
+        }
     }
 
 }

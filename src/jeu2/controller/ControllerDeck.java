@@ -13,12 +13,4 @@ public class ControllerDeck extends LController {
         this.mainModel = mainModel;
     }
 
-    @Override
-    protected void preInitialize(){
-        super.preInitialize();
-        setGridLinesVisible(true);
-//        setPaddingColor(Color.RED);
-//        gridID.setGridLinesVisible(false);
-    }
-
 }

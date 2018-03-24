@@ -22,7 +22,7 @@ public class View extends LView {
     public View() throws Exception {
         setTitle("Blokus");
 
-        int ratio = 35;
+        int ratio = 33;
         int spacing = 10;
         int ratioDecks = 10;
 
