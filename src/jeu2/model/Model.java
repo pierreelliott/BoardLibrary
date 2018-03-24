@@ -210,11 +210,7 @@ public class Model extends LModel {
     public boolean placeAt(LPosition p) {
         if(!hasCurrentPiece())
             return false;
-        try {
-            getBoard().addPiece(getCurrentPiece());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        addCurrentPiece();
         boolean placed = placeSafely(getCurrentPiece(), p);
         if(!placed)
             getBoard().removePiece(getCurrentPiece());
@@ -225,41 +221,83 @@ public class Model extends LModel {
         if(!hasCurrentPiece())
             return;
         boolean placed = placeSafely(getCurrentPiece(), p);
+        getBoard().removePiece(getCurrentPiece());
         if(!placed){
-            getBoard().removePiece(getCurrentPiece());
             return;
         }
+        placePersistencePiece();
+    }
 
-        getBoard().removePiece(getCurrentPiece());
-        try {
-            getBoard().addPiece(new LPiece(getCurrentPiece()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void enter(){
+        placePersistencePiece();
+    }
+
+    private void placePersistencePiece(){
+        addCurrentPiece();
         resetCurrentPiece();
         setChanged();
         notifyObservers();
     }
 
     public void moveRight(){
+        if(!hasCurrentPiece())
+            return;
+        getBoard().removePiece(getCurrentPiece());
         moveSafely(getCurrentPiece(), GORIGHT);
+        addCurrentPiece();
     }
 
     public void moveLeft(){
+        if(!hasCurrentPiece())
+            return;
+        getBoard().removePiece(getCurrentPiece());
         moveSafely(getCurrentPiece(), GOLEFT);
+        addCurrentPiece();
     }
 
     public void moveUp(){
+        if(!hasCurrentPiece())
+            return;
+        getBoard().removePiece(getCurrentPiece());
         moveSafely(getCurrentPiece(), GOUP);
+        addCurrentPiece();
     }
 
     public void moveDown(){
+        if(!hasCurrentPiece())
+            return;
+        getBoard().removePiece(getCurrentPiece());
         moveSafely(getCurrentPiece(), GODOWN);
+        addCurrentPiece();
     }
 
-    public void rotatePiece(){ rotateSafely(getCurrentPiece(), true); }
+    public void rotatePiece(){
+        if(!hasCurrentPiece())
+            return;
+        getBoard().removePiece(getCurrentPiece());
+        rotateSafely(getCurrentPiece(), true);
+        addCurrentPiece();
+    }
 
-    public void selectPiece(LPosition pos) { setCurrentPiece(getBoard().getPiece(pos)); }
+    public void flipXPiece() {
+        if(!hasCurrentPiece())
+            return;
+        getBoard().removePiece(getCurrentPiece());
+        flipSafely(getCurrentPiece(), true);
+        addCurrentPiece();
+    }
+
+    public void flipYPiece() {
+        if(!hasCurrentPiece())
+            return;
+        getBoard().removePiece(getCurrentPiece());
+        flipSafely(getCurrentPiece(), false);
+        addCurrentPiece();
+    }
+
+    public void selectPiece(LPosition pos) {
+        setCurrentPiece(getBoard().getPiece(pos));
+    }
 
     public void nextPlayer() {
         player = player.next();
@@ -275,17 +313,19 @@ public class Model extends LModel {
         }
     }
 
-    public void flipXPiece() {
-        flipSafely(getCurrentPiece(), true);
-    }
-
-    public void flipYPiece() {
-        flipSafely(getCurrentPiece(), false);
-    }
-
     public void removeCurrentPiece(){
         if(hasCurrentPiece()){
             getBoard().removePiece(getCurrentPiece());
+        }
+    }
+
+    private void addCurrentPiece(){
+        if(!hasCurrentPiece())
+            return;
+        try {
+            getBoard().addPiece(getCurrentPiece());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

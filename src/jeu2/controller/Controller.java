@@ -1,7 +1,6 @@
 package jeu2.controller;
 
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import jeu2.model.Model;
 import mainlib.controller.LController;
 import mainlib.model.LPosition;
@@ -36,7 +35,7 @@ public class Controller extends LController {
     public void handleKeyPressed(KeyEvent event){
         switch (event.getCode()) {
             case DOWN:
-                ((Model) lModel).moveUp();
+                ((Model) lModel).moveDown();
                 break;
             case LEFT:
                 ((Model) lModel).moveLeft();
@@ -45,7 +44,7 @@ public class Controller extends LController {
                 ((Model) lModel).moveRight();
                 break;
             case UP:
-                ((Model) lModel).moveDown();
+                ((Model) lModel).moveUp();
                 break;
             case SPACE:
                 ((Model) lModel).rotatePiece();
@@ -55,6 +54,9 @@ public class Controller extends LController {
                 break;
             case M:
                 ((Model) lModel).flipYPiece();
+                break;
+            case ENTER:
+                ((Model) lModel).enter();
                 break;
         }
         refresh();
