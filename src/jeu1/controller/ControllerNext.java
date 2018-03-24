@@ -10,19 +10,12 @@ public class ControllerNext extends LController{
 
     public ControllerNext(LModel lModel, LModel modelNext) throws Exception {
         super(modelNext);
-        lModel.addObserver(this);
+        modelNext.addObserver(this);
     }
 
     @Override
     protected void preInitialize(){
         super.preInitialize();
         setCellPadding(2);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        ((ModelNext) lModel).refreshPiece();
-        super.update(o, arg);
-//        Platform.runLater(this::refresh);
     }
 }

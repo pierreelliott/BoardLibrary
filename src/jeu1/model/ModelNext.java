@@ -5,7 +5,10 @@ import mainlib.model.LModel;
 import mainlib.model.LPiece;
 import mainlib.model.LPosition;
 
-public class ModelNext extends LModel {
+import java.util.Observable;
+import java.util.Observer;
+
+public class ModelNext extends LModel implements Observer {
 
     private Model model;
 
@@ -14,6 +17,7 @@ public class ModelNext extends LModel {
         LBoard board = new LBoard(4,4);
         setBoard(board);
         this.model = model;
+        model.addObserver(this);
     }
 
     public void refreshPiece(){
@@ -39,5 +43,12 @@ public class ModelNext extends LModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        refreshPiece();
+        setChanged();
+        notifyObservers();
     }
 }
