@@ -41,7 +41,7 @@ public class View extends LView {
 
         ArrayList<ModelDeck> modelDecks = new ArrayList<>();
         for (int i = 0; i<4; i++)
-            modelDecks.add(new ModelDeck(model, colors.get(i), colorsDark.get(i)));
+            modelDecks.add(new ModelDeck(model, colors.get(i), colorsDark.get(i), i));
 
         model.addModelDecks(modelDecks);
 

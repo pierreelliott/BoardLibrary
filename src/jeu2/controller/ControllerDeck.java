@@ -14,21 +14,12 @@ public class ControllerDeck extends LController {
     public ControllerDeck(LModel mainModel,  ModelDeck modelDeck) throws Exception {
         super(modelDeck);
         this.mainModel = mainModel;
-        this.mainModel.addObserver(this);
+        modelDeck.addObserver(this);
     }
-
 
     @Override
     protected void cellMouseClicked(int row, int col) {
         ((ModelDeck) lModel).selectPiece(col, row);
         refresh();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        ((ModelDeck) lModel).removePiece();
-//        if(((Model) mainModel).getPlayerI())
-        ((ModelDeck) lModel).disable();
-        super.update(o, arg);
     }
 }

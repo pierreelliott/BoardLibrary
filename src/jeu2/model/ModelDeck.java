@@ -6,7 +6,10 @@ import mainlib.model.LModel;
 import mainlib.model.LPiece;
 import mainlib.model.LPosition;
 
-public class ModelDeck extends LModel {
+import java.util.Observable;
+import java.util.Observer;
+
+public class ModelDeck extends LModel implements Observer {
 
     private Model model;
     private int WIDTH = 15;
@@ -14,14 +17,17 @@ public class ModelDeck extends LModel {
 
     private Color color;
     private Color colorDark;
+    private int playerI;
 
-    public ModelDeck(Model model, Color color, Color colorDark) throws Exception {
+    public ModelDeck(Model model, Color color, Color colorDark, int playerI) throws Exception {
         super();
         Board board = new Board(WIDTH,HEIGHT);
         setBoard(board);
         this.model = model;
+        this.model.addObserver(this);
         this.color = color;
         this.colorDark = colorDark;
+        this.playerI = playerI;
 
         Piece p;
         for (PieceEnum pe : PieceEnum.values()) {
@@ -62,5 +68,17 @@ public class ModelDeck extends LModel {
 
     public void disable(){
         ((Board) getBoard()).changePiecesColor(colorDark);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        removePiece();
+        if(model.getPlayerI() == playerI){
+            enable();
+        } else {
+            disable();
+        }
+        setChanged();
+        notifyObservers();
     }
 }
