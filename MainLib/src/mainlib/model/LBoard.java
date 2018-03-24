@@ -22,7 +22,7 @@ public class LBoard {
     /**
      * List of LPiece contained on the board.
      */
-    private List<LPiece> pieces;
+    protected List<LPiece> pieces;
     /**
      * Width of the board.
      * Must be strict positive.
@@ -405,5 +405,13 @@ public class LBoard {
                 }
             }
         }
+    }
+
+    /**
+     * Returns number of pieces
+     * @return int
+     */
+    public int countPieces(){
+        return pieces.size();
     }
 }

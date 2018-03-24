@@ -36,10 +36,14 @@ public class View extends LView {
 
         ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
                 Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW));
+        ArrayList<Color> colorsDark = new ArrayList<>(Arrays.asList(
+                Color.DARKRED, Color.DARKGREEN, Color.DARKBLUE, Color.DARKGOLDENROD));
 
         ArrayList<ModelDeck> modelDecks = new ArrayList<>();
         for (int i = 0; i<4; i++)
-            modelDecks.add(new ModelDeck(model, colors.get(i)));
+            modelDecks.add(new ModelDeck(model, colors.get(i), colorsDark.get(i)));
+
+        model.addModelDecks(modelDecks);
 
         ArrayList<ControllerDeck> controllerDecks = new ArrayList<>();
         for (int i = 0; i<4; i++)

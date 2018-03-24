@@ -13,13 +13,15 @@ public class ModelDeck extends LModel {
     private int HEIGHT = 15;
 
     private Color color;
+    private Color colorDark;
 
-    public ModelDeck(Model model, Color color) throws Exception {
+    public ModelDeck(Model model, Color color, Color colorDark) throws Exception {
         super();
-        LBoard board = new LBoard(WIDTH,HEIGHT);
+        Board board = new Board(WIDTH,HEIGHT);
         setBoard(board);
         this.model = model;
         this.color = color;
+        this.colorDark = colorDark;
 
         Piece p;
         for (PieceEnum pe : PieceEnum.values()) {
@@ -44,5 +46,21 @@ public class ModelDeck extends LModel {
         if(hasCurrentPiece())
             getBoard().removePiece(getCurrentPiece());
         resetCurrentPiece();
+    }
+
+    public boolean hasNoMorePiece(){
+        return getBoard().countPieces() == 0;
+    }
+
+    public Color getColor(){
+        return color;
+    }
+
+    public void enable(){
+        ((Board) getBoard()).changePiecesColor(color);
+    }
+
+    public void disable(){
+        ((Board) getBoard()).changePiecesColor(colorDark);
     }
 }

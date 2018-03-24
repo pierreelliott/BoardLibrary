@@ -1,5 +1,6 @@
 package jeu2.controller;
 
+import jeu2.model.Model;
 import jeu2.model.ModelDeck;
 import mainlib.controller.LController;
 import mainlib.model.LModel;
@@ -10,7 +11,7 @@ public class ControllerDeck extends LController {
 
     private LModel mainModel;
 
-    public ControllerDeck(LModel mainModel, ModelDeck modelDeck) throws Exception {
+    public ControllerDeck(LModel mainModel,  ModelDeck modelDeck) throws Exception {
         super(modelDeck);
         this.mainModel = mainModel;
         this.mainModel.addObserver(this);
@@ -26,6 +27,8 @@ public class ControllerDeck extends LController {
     @Override
     public void update(Observable o, Object arg) {
         ((ModelDeck) lModel).removePiece();
+//        if(((Model) mainModel).getPlayerI())
+        ((ModelDeck) lModel).disable();
         super.update(o, arg);
     }
 }

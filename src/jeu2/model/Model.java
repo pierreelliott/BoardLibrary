@@ -16,6 +16,9 @@ public class Model extends LModel {
     private PlayerEnum player;
     private List<PlayerEnum> eliminated;
 
+    private int playerI = 0;
+    private ArrayList<ModelDeck> modelDecks = new ArrayList<>();
+
     public Model() throws Exception {
         LBoard board = new LBoard(WIDTH,HEIGHT);
         setBoard(board);
@@ -233,6 +236,7 @@ public class Model extends LModel {
     }
 
     private void placePersistencePiece(){
+        nextPlayerI();
         addCurrentPiece();
         resetCurrentPiece();
         setChanged();
@@ -327,5 +331,20 @@ public class Model extends LModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void addModelDecks(ArrayList<ModelDeck> modelDecks){
+        this.modelDecks.addAll(modelDecks);
+    }
+
+    public int nextPlayerI(){
+        playerI++;
+        if(playerI > 3)
+            playerI = 0;
+        return playerI;
+    }
+
+    public int getPlayerI(){
+        return playerI;
     }
 }
