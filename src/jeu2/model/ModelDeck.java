@@ -3,6 +3,8 @@ package jeu2.model;
 import javafx.scene.paint.Color;
 import mainlib.model.LBoard;
 import mainlib.model.LModel;
+import mainlib.model.LPiece;
+import mainlib.model.LPosition;
 
 public class ModelDeck extends LModel {
 
@@ -25,6 +27,14 @@ public class ModelDeck extends LModel {
             p.moveToStartPos();
             getBoard().addPiece(p);
         }
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public LPiece getPiece(LPosition pos) {
+        return getBoard().getPiece(pos);
     }
 
 }

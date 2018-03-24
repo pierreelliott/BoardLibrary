@@ -237,7 +237,7 @@ public class Model extends LModel {
     public void placeAt(LPosition p, boolean permanent) {
         boolean placed = placeSafely(getCurrentPiece(), p);
         if(permanent && placed) {
-            spawnPiece();
+            resetCurrentPiece();
         }
     }
 
@@ -259,7 +259,13 @@ public class Model extends LModel {
 
     public void rotatePiece(){ rotateSafely(getCurrentPiece(), true); }
 
-    public void selectPiece(LPosition pos) { setCurrentPiece(getBoard().getPiece(pos)); }
+    public boolean selectPiece(LPosition pos) {
+        setCurrentPiece(getBoard().getPiece(pos));
+        if(getCurrentPiece() != null) {
+            return true;
+        }
+        return false;
+    }
 
     public void nextPlayer() {
         player = player.next();

@@ -12,7 +12,7 @@ public class Controller extends LController {
         setCellPadding(5);
 
 //        setCellDefaultColor(Color.RED);
-        model.spawnPiece();
+        //model.spawnPiece();
     }
 
     protected void preInitialize(){
