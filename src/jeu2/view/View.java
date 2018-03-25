@@ -14,8 +14,6 @@ import mainlib.view.LView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class View extends LView {
 
@@ -60,8 +58,8 @@ public class View extends LView {
 
         anchorPaneGrid.setPrefWidth(ratio*20);
 
-        VBox vBoxLeft = new VBox(spacing, anchorPaneDecks.get(0), anchorPaneDecks.get(1));
-        VBox vBoxRight = new VBox(spacing, anchorPaneDecks.get(2), anchorPaneDecks.get(3));
+        VBox vBoxLeft = new VBox(spacing, anchorPaneDecks.get(0), anchorPaneDecks.get(3));
+        VBox vBoxRight = new VBox(spacing, anchorPaneDecks.get(1), anchorPaneDecks.get(2));
         HBox hbox = new HBox(spacing, vBoxLeft, anchorPaneGrid, vBoxRight);
 
         Scene scene = new Scene(hbox, 2*spacing + 2*ratio*ratioDecks + ratio*20, ratio*20);

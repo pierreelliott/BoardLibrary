@@ -3,18 +3,14 @@ package jeu2.model;
 import javafx.scene.paint.Color;
 import mainlib.model.LBoard;
 import mainlib.model.LModel;
-import mainlib.model.LPiece;
 import mainlib.model.LPosition;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Model extends LModel {
 
     private int WIDTH = 20;
     private int HEIGHT = 20;
-    private PlayerEnum player;
-    private List<PlayerEnum> eliminated;
 
     private int playerI = 0;
     private ArrayList<ModelDeck> modelDecks = new ArrayList<>();
@@ -22,8 +18,6 @@ public class Model extends LModel {
     public Model() throws Exception {
         LBoard board = new LBoard(WIDTH,HEIGHT);
         setBoard(board);
-        player = PlayerEnum.BLUE;
-        eliminated = new ArrayList<>();
     }
 
     public Piece generatePiece(PieceEnum p, Color color) {
@@ -301,20 +295,6 @@ public class Model extends LModel {
 
     public void selectPiece(LPosition pos) {
         setCurrentPiece(getBoard().getPiece(pos));
-    }
-
-    public void nextPlayer() {
-        player = player.next();
-        if(eliminated.size() < 4 && eliminated.contains(player)) {
-            nextPlayer();
-        }
-    }
-
-    public void eliminate(PlayerEnum p) {
-        eliminated.add(p);
-        if(eliminated.size() >= 4) {
-            setFinished(true);
-        }
     }
 
     public void removeCurrentPiece(){

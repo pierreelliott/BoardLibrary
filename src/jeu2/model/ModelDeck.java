@@ -1,7 +1,6 @@
 package jeu2.model;
 
 import javafx.scene.paint.Color;
-import mainlib.model.LBoard;
 import mainlib.model.LModel;
 import mainlib.model.LPiece;
 import mainlib.model.LPosition;
@@ -31,13 +30,15 @@ public class ModelDeck extends LModel implements Observer {
 
         Piece p;
         for (PieceEnum pe : PieceEnum.values()) {
-            p = model.generatePiece(pe, color);
+            p = model.generatePiece(pe, playerI == 0 ? color : colorDark);
             p.moveToStartPos();
             getBoard().addPiece(p);
         }
     }
 
     public void selectPiece(int col, int row){
+        if(!canPlay())
+            return;
         Piece p = (Piece) getBoard().getPiece(new LPosition(col, row));
         if(p == null){
             model.resetCurrentPiece();
@@ -73,12 +74,16 @@ public class ModelDeck extends LModel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         removePiece();
-        if(model.getPlayerI() == playerI){
+        if(canPlay()){
             enable();
         } else {
             disable();
         }
         setChanged();
         notifyObservers();
+    }
+
+    private boolean canPlay(){
+        return model.getPlayerI() == playerI;
     }
 }
