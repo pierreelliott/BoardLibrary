@@ -41,12 +41,19 @@ public class ModelDeck extends LModel implements Observer {
             return;
         Piece p = (Piece) getBoard().getPiece(new LPosition(col, row));
         if(p == null){
+            if(hasCurrentPiece()) {
+                getCurrentPiece().setColor(color);
+            }
             model.resetCurrentPiece();
             resetCurrentPiece();
             return;
         }
+        if(hasCurrentPiece() && p != getCurrentPiece()) {
+            getCurrentPiece().setColor(color);
+        }
         setCurrentPiece(p);
         model.setCurrentPiece(new LPiece(p));
+        p.setColor(Color.GRAY);
     }
 
     public void removePiece(){
