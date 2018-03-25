@@ -12,6 +12,7 @@ public class ModelDeck extends LModel implements Observer {
 
     private Model model;
     private int WIDTH = 15;
+
     private int HEIGHT = 15;
 
     private Color color;

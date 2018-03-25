@@ -13,7 +13,6 @@ public class Model extends LModel {
     private int HEIGHT = 20;
 
     private int playerI = 0;
-    private ArrayList<ModelDeck> modelDecks = new ArrayList<>();
 
     public Model() throws Exception {
         LBoard board = new LBoard(WIDTH,HEIGHT);
@@ -311,10 +310,6 @@ public class Model extends LModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void addModelDecks(ArrayList<ModelDeck> modelDecks){
-        this.modelDecks.addAll(modelDecks);
     }
 
     public int nextPlayerI(){
