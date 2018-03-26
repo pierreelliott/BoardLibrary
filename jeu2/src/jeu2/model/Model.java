@@ -377,4 +377,8 @@ public class Model extends LModel {
     public int getPlayerI(){
         return playerI;
     }
+
+    public void eliminate(int player) {
+
+    }
 }

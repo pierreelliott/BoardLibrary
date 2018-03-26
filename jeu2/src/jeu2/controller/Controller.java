@@ -1,11 +1,20 @@
 package jeu2.controller;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import jeu2.model.Model;
 import mainlib.controller.LController;
 import mainlib.model.LPosition;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class Controller extends LController {
+
+    @FXML
+    Button passButtonID;
+
     public Controller(Model model) throws Exception {
         super(model);
         setCellPadding(5);
@@ -14,6 +23,11 @@ public class Controller extends LController {
     protected void preInitialize(){
         super.preInitialize();
         setGridLinesVisible(true);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //passButtonID.setOnMouseClicked(event -> passTurn());
     }
 
     @Override
@@ -60,5 +74,9 @@ public class Controller extends LController {
                 break;
         }
         refresh();
+    }
+
+    public void passTurn() {
+
     }
 }
