@@ -167,7 +167,15 @@ public class LModel extends Observable {
         piece.rotate(trigo);
     }
 
-    public boolean isAdjacentTo(LPiece p1, LPiece p2, boolean withDiag) {
+    /**
+     * Determine adjacent wether a piece is adjacent to another one
+     * @param p1
+     * @param p2
+     * @param withDiag
+     * @return
+     * @see LBoard#isAdjacentTo(LPiece, LPiece, int)
+     */
+    public boolean isAdjacentTo(LPiece p1, LPiece p2, int withDiag) {
         return lBoard.isAdjacentTo(p1, p2, withDiag);
     }
 

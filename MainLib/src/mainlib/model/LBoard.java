@@ -186,6 +186,18 @@ public class LBoard {
     }
 
     /**
+     * Force the new piece to be added on the board even if it is outside<br>
+     *     Be careful when using it !
+     * @param p LPiece to "force add" on the board
+     * @param force <em>True</em> to force the placement (if set to false, nothing happen)
+     */
+    public void addPiece(LPiece p, boolean force) {
+        if(force) {
+            pieces.add(p);
+        }
+    }
+
+    /**
      * Remove a piece of the board.
      * @param p LPiece to remove.
      */
@@ -275,17 +287,23 @@ public class LBoard {
      * Check for a already placed piece, if there is a collision when moved.
      * @param lPiece LPiece Already placed piece.
      * @param hypoLPiece Same piece already moved by hypothetical movements.
+     * @param force If <em>True</em>, force the test even on pieces that aren't on the board
      * @return <true>true</true> if there is a collision.
      */
-    private boolean isCollision(LPiece lPiece, LPiece hypoLPiece){
+    private boolean isCollision(LPiece lPiece, LPiece hypoLPiece, boolean force){
         LPiece[][] matrix = getMatrix();
-        for(LPosition position : lPiece.getPositions()){
-            matrix[position.getPosY()][position.getPosX()] = null;
+        if(!force) {
+            for(LPosition position : lPiece.getPositions()){
+                matrix[position.getPosY()][position.getPosX()] = null;
+            }
         }
 
         ArrayList<LPosition> hypoPos = hypoLPiece.getPositions();
         for(LPosition position : hypoPos){
             if(!isOnBoard(position)) {
+                if(force) {
+                    continue;
+                }
 //                System.out.println("STOP Is not on board " + position.toString());
                 return true;
             }
@@ -298,15 +316,28 @@ public class LBoard {
     }
 
     /**
+     * Check for a already placed piece, if there is a collision when moved.
+     * @param lPiece LPiece Already placed piece.
+     * @param hypoLPiece Same piece already moved by hypothetical movements.
+     * @return <true>true</true> if there is a collision.
+     * @see LBoard#isCollision(LPiece, LPiece, boolean)
+     */
+    private boolean isCollision(LPiece lPiece, LPiece hypoLPiece) {
+        return isCollision(lPiece, hypoLPiece, false);
+    }
+
+    /**
      * Check if two pieces are adjacent (ie, they "touch")
      * @param p1 First piece to compare
      * @param p2 Second piece to compare
-     * @param withDiag <em>True</em> if the comparison should include diagonal positions
+     * @param withDiag <em>-1</em> to include diagonal positions, <em>1</em> to remove diagonal adjacent positions
+     *                 <em>0</em> to get the previous two merged
      * @return <em>True</em> if they are adjacent (depending on the <em>withDiag</em> parameter), <em>False</em> otherwise
+     * @see LPiece#getAdjacentPositions(int)
      */
-    public boolean isAdjacentTo(LPiece p1, LPiece p2, boolean withDiag) {
+    public boolean isAdjacentTo(LPiece p1, LPiece p2, int withDiag) {
         // If they collide, they aren't adjacent
-        if(isCollision(p1,p2)) {
+        if(isCollision(p2,p1, true)) {
             return false;
         }
 
@@ -326,12 +357,13 @@ public class LBoard {
      * @return List without out-of-board positions (be careful, this list might be empty)
      */
     private List<LPosition> suppressOutOfBoard(List<LPosition> list) {
+        List<LPosition> pos = new ArrayList<>();
         for(LPosition p : list) {
-            if(!isOnBoard(p)) {
-                list.remove(p);
+            if(isOnBoard(p)) {
+                pos.add(p);
             }
         }
-        return list;
+        return pos;
     }
 
     /**

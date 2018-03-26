@@ -318,20 +318,22 @@ public class LPiece {
      * Get adjacent positions to the current piece
      * @param withDiag <em>True</em> if adjacent positions contain diagonal ones, <em>False</em> otherwise.
      * @return List of LPositions (which might not be on the board)
+     * @see LPosition#getAdjacentPositions(int)
      */
-    public List<LPosition> getAdjacentPositions(boolean withDiag) {
+    public List<LPosition> getAdjacentPositions(int withDiag) {
         List<LPosition> correctPos = new ArrayList<>();
-        List<LPosition> temp;
         for(LPosition p: positions) {
-            temp = p.getAdjacentPositions(withDiag);
-            for(LPosition adj: temp) {
+            List<LPosition> adjacents = p.getAdjacentPositions(withDiag);
+            List<LPosition> pos = new ArrayList<>();
+            for(LPosition adj: adjacents) {
                 for(LPosition alreadyContained: positions) {
                     if(adj.equals(alreadyContained)) {
-                        temp.remove(adj);
+                        continue;
                     }
                 }
+                pos.add(adj);
             }
-            correctPos.addAll(temp);
+            correctPos.addAll(pos);
         }
 
         return correctPos;

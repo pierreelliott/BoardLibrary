@@ -174,27 +174,24 @@ public class LPosition implements Cloneable{
     }
 
     /**
-     * Default adjacent positions list (doesn't contain diagonal positions)
-     * @return List of all adjacent positions (without diagonal ones)
-     */
-    public List<LPosition> getAdjacentPositions() {
-        return getAdjacentPositions(false);
-    }
-
-    /**
-     * Get Positions adjacent to the current one
-     * @param withDiag <em>True</em> to include diagonal positions, <em>False otherwise</em>
+     * Get Positions adjacent to the current one<br>
+     *     Note : any positive number is handled as <em>1</em> (the same applies to <em>-1</em>)
+     * @param withDiag <em>1</em> to get "direct adjacent" positions (without diagonal)
+     *                 <em>0</em> to get all adjacent positions (diagonal and the others)
+     *                 <em>-1</em> to get only diagonal adjacent positions
      * @return List of all adjacent positions
      */
-    public List<LPosition> getAdjacentPositions(boolean withDiag) {
+    public List<LPosition> getAdjacentPositions(int withDiag) {
         List<LPosition> adjacents = new ArrayList<>();
 
-        adjacents.add(new LPosition(posX-1,posY));
-        adjacents.add(new LPosition(posX,posY-1));
-        adjacents.add(new LPosition(posX,posY+1));
-        adjacents.add(new LPosition(posX+1,posY));
+        if(withDiag >= 0) {
+            adjacents.add(new LPosition(posX-1,posY));
+            adjacents.add(new LPosition(posX,posY-1));
+            adjacents.add(new LPosition(posX,posY+1));
+            adjacents.add(new LPosition(posX+1,posY));
+        }
 
-        if(withDiag) {
+        if(withDiag <= 0) {
             adjacents.add(new LPosition(posX-1,posY-1));
             adjacents.add(new LPosition(posX-1,posY+1));
             adjacents.add(new LPosition(posX+1,posY-1));

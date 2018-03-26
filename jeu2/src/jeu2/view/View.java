@@ -49,10 +49,10 @@ public class View extends LView {
 
         // Liste des couleurs actives.
         ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
-                Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW));
+                Color.BLUE, Color.YELLOW, Color.RED, Color.GREEN));
         // Liste des couleurs désactivées.
         ArrayList<Color> colorsDark = new ArrayList<>(Arrays.asList(
-                Color.DARKRED, Color.DARKGREEN, Color.DARKBLUE, Color.DARKGOLDENROD));
+                Color.DARKBLUE, Color.DARKGOLDENROD, Color.DARKRED, Color.DARKGREEN));
 
         // Génération des models.
         ArrayList<ModelDeck> modelDecks = new ArrayList<>();

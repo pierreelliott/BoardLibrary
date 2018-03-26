@@ -7,6 +7,8 @@ import mainlib.model.LPiece;
 import mainlib.model.LPosition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Model extends LModel {
 
@@ -14,6 +16,13 @@ public class Model extends LModel {
     private int HEIGHT = 20;
 
     private int playerI = 0;
+
+    // Liste des couleurs actives.
+    private ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
+            Color.BLUE, Color.YELLOW, Color.RED, Color.GREEN));
+    // Liste des couleurs désactivées.
+    private ArrayList<Color> colorsDark = new ArrayList<>(Arrays.asList(
+            Color.DARKBLUE, Color.DARKGOLDENROD, Color.DARKRED, Color.DARKGREEN));
 
     public Model() throws Exception {
         LBoard board = new LBoard(WIDTH,HEIGHT);
@@ -242,22 +251,44 @@ public class Model extends LModel {
     }
 
     public boolean followGameRules() {
-        // FIXME Vérification si la currentPiece existe peut-être, non ?
+        // FIXME Vérification si la currentPiece existe, non ?
         return followGameRules(getCurrentPiece());
     }
 
     public boolean followGameRules(LPiece piece) {
         // FIXME Je considère que la pièce ne collide pas avec les autres (pour réduire la complexité)
-        for(LPiece p : getBoard().getPieces()) {
-            if(true) { // FIXME The piece belong to the current player
-                if(!isAdjacentTo(p, piece, true)) { // FIXME Pas beau, faut trouver qqc pour tester s'il est seulement sur la diago
-                    // FIXME (Suite) Meilleur moyen : changer le withDiag boolean pour un int (1 = tout, 0 = without diag, -1 = onlyDiag)
-                    return false;
-                }
+        int count = 0;
+        List<LPiece> pieces = getBoard().getPieces();
+        if(pieces.size() < 4) {
+            pieces = addStartingPositions(pieces); //FIXME Les pièces de départ s'ajoutent définitivement dans le board à cause des pointeurs de java
+        }
+        for(LPiece p : pieces) {
+            if(p.getColor().equals(colors.get(playerI))) { // FIXME The piece belong to the current player
+//                if(isAdjacentTo(piece, p, 0)){
+                    if(isAdjacentTo(piece, p, -1))
+                    {
+                        count++;
+                    }
+//                }
             }
         }
-        // FIXME Il faut aussi tester qu'elle touche une pièce (càd, qu'elle soit au moins adjacente à une pièce)
-        return true;
+        // Il faut aussi tester qu'elle touche une pièce (càd, qu'elle soit au moins adjacente à une pièce)
+        return (count > 0);
+    }
+
+    private List<LPiece> addStartingPositions(List<LPiece> pieces) {
+        pieces.add(startPos(new LPosition(-1,-1), 0));
+        pieces.add(startPos(new LPosition(WIDTH,-1), 1));
+        pieces.add(startPos(new LPosition(WIDTH,HEIGHT), 2));
+        pieces.add(startPos(new LPosition(-1,HEIGHT), 3));
+
+        return pieces;
+    }
+
+    private LPiece startPos(LPosition p, int color) {
+        ArrayList<LPosition> pos = new ArrayList<>();
+        pos.add(p);
+        return new LPiece(pos, p, colors.get(color));
     }
 
     public void moveRight(){
