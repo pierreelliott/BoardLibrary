@@ -27,6 +27,7 @@ public class Controller extends LController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
         //passButtonID.setOnMouseClicked(event -> passTurn());
     }
 

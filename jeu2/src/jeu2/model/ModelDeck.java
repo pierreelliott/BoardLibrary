@@ -44,6 +44,7 @@ public class ModelDeck extends LModel implements Observer {
         if(p == null){
             if(hasCurrentPiece()) {
                 getCurrentPiece().setColor(color);
+                model.removeCurrentPiece();
             }
             model.resetCurrentPiece();
             resetCurrentPiece();
