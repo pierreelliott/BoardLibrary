@@ -3,6 +3,7 @@ package jeu2.model;
 import javafx.scene.paint.Color;
 import mainlib.model.LBoard;
 import mainlib.model.LModel;
+import mainlib.model.LPiece;
 import mainlib.model.LPosition;
 
 import java.util.ArrayList;
@@ -229,11 +230,34 @@ public class Model extends LModel {
     }
 
     private void placePersistencePiece(){
+        // FIXME Je sais pas si faut placer la vérification des règles ici
+        if(!followGameRules()) {
+            return;
+        }
         nextPlayerI();
         addCurrentPiece();
         resetCurrentPiece();
         setChanged();
         notifyObservers();
+    }
+
+    public boolean followGameRules() {
+        // FIXME Vérification si la currentPiece existe peut-être, non ?
+        return followGameRules(getCurrentPiece());
+    }
+
+    public boolean followGameRules(LPiece piece) {
+        // FIXME Je considère que la pièce ne collide pas avec les autres (pour réduire la complexité)
+        for(LPiece p : getBoard().getPieces()) {
+            if(true) { // FIXME The piece belong to the current player
+                if(!isAdjacentTo(p, piece, true)) { // FIXME Pas beau, faut trouver qqc pour tester s'il est seulement sur la diago
+                    // FIXME (Suite) Meilleur moyen : changer le withDiag boolean pour un int (1 = tout, 0 = without diag, -1 = onlyDiag)
+                    return false;
+                }
+            }
+        }
+        // FIXME Il faut aussi tester qu'elle touche une pièce (càd, qu'elle soit au moins adjacente à une pièce)
+        return true;
     }
 
     public void moveRight(){

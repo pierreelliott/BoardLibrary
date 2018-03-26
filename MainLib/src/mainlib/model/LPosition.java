@@ -1,5 +1,8 @@
 package mainlib.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class is used to standardize two dimensional usages.
  * It provides translation and rotation.
@@ -168,6 +171,37 @@ public class LPosition implements Cloneable{
      */
     public void flipY(){
         posY = -posY;
+    }
+
+    /**
+     * Default adjacent positions list (doesn't contain diagonal positions)
+     * @return List of all adjacent positions (without diagonal ones)
+     */
+    public List<LPosition> getAdjacentPositions() {
+        return getAdjacentPositions(false);
+    }
+
+    /**
+     * Get Positions adjacent to the current one
+     * @param withDiag <em>True</em> to include diagonal positions, <em>False otherwise</em>
+     * @return List of all adjacent positions
+     */
+    public List<LPosition> getAdjacentPositions(boolean withDiag) {
+        List<LPosition> adjacents = new ArrayList<>();
+
+        adjacents.add(new LPosition(posX-1,posY));
+        adjacents.add(new LPosition(posX,posY-1));
+        adjacents.add(new LPosition(posX,posY+1));
+        adjacents.add(new LPosition(posX+1,posY));
+
+        if(withDiag) {
+            adjacents.add(new LPosition(posX-1,posY-1));
+            adjacents.add(new LPosition(posX-1,posY+1));
+            adjacents.add(new LPosition(posX+1,posY-1));
+            adjacents.add(new LPosition(posX+1,posY+1));
+        }
+
+        return adjacents;
     }
 
     @Override

@@ -167,6 +167,10 @@ public class LModel extends Observable {
         piece.rotate(trigo);
     }
 
+    public boolean isAdjacentTo(LPiece p1, LPiece p2, boolean withDiag) {
+        return lBoard.isAdjacentTo(p1, p2, withDiag);
+    }
+
     /**
      * Change game state.
      * <em>true</em> when game is over.

@@ -67,6 +67,12 @@ public class LBoard {
     }
 
     /**
+     * Pieces getter
+     * @return List<LPiece>
+     */
+    public List<LPiece> getPieces() { return pieces; }
+
+    /**
      * Create a two dimensional array of piece pointers.
      * Pointer is <em>null</em> when there is no piece on location.
      * Use width and height of the board as indices.
@@ -289,6 +295,43 @@ public class LBoard {
             }
         }
         return false;
+    }
+
+    /**
+     * Check if two pieces are adjacent (ie, they "touch")
+     * @param p1 First piece to compare
+     * @param p2 Second piece to compare
+     * @param withDiag <em>True</em> if the comparison should include diagonal positions
+     * @return <em>True</em> if they are adjacent (depending on the <em>withDiag</em> parameter), <em>False</em> otherwise
+     */
+    public boolean isAdjacentTo(LPiece p1, LPiece p2, boolean withDiag) {
+        // If they collide, they aren't adjacent
+        if(isCollision(p1,p2)) {
+            return false;
+        }
+
+        boolean adjacent = false; // Fixme Y a moyen de faire un return direct ? (J'ai un doute)
+        List<LPosition> posP2 = suppressOutOfBoard(p2.getAdjacentPositions(withDiag));
+        for(LPosition pos : posP2) {
+            if(p1.isOnPosition(pos)) {
+                adjacent = true;
+            }
+        }
+        return adjacent;
+    }
+
+    /**
+     * Remove out-of-board positions from a list
+     * @param list List containing positions to handle
+     * @return List without out-of-board positions (be careful, this list might be empty)
+     */
+    private List<LPosition> suppressOutOfBoard(List<LPosition> list) {
+        for(LPosition p : list) {
+            if(!isOnBoard(p)) {
+                list.remove(p);
+            }
+        }
+        return list;
     }
 
     /**

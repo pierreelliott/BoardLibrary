@@ -133,7 +133,7 @@ public class LPiece {
     }
 
     /**
-     * Check if the piece is located on a position.
+     * Check if the piece is located on a position (ie, if it contains this position).
      * @param p LPosition to check
      * @return <em>true</em> when the LPosition match the piece positions.
      */
@@ -312,6 +312,29 @@ public class LPiece {
      */
     public boolean isBroken(){
         return positions.size() == 1;
+    }
+
+    /**
+     * Get adjacent positions to the current piece
+     * @param withDiag <em>True</em> if adjacent positions contain diagonal ones, <em>False</em> otherwise.
+     * @return List of LPositions (which might not be on the board)
+     */
+    public List<LPosition> getAdjacentPositions(boolean withDiag) {
+        List<LPosition> correctPos = new ArrayList<>();
+        List<LPosition> temp;
+        for(LPosition p: positions) {
+            temp = p.getAdjacentPositions(withDiag);
+            for(LPosition adj: temp) {
+                for(LPosition alreadyContained: positions) {
+                    if(adj.equals(alreadyContained)) {
+                        temp.remove(adj);
+                    }
+                }
+            }
+            correctPos.addAll(temp);
+        }
+
+        return correctPos;
     }
 
     @Override
