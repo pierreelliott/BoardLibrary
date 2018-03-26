@@ -16,6 +16,7 @@ public class Model extends LModel {
     private int HEIGHT = 20;
 
     private int playerI = 0;
+    private List<Integer> eliminated = new ArrayList<>();
 
     // Liste des couleurs actives.
     private ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
@@ -243,9 +244,12 @@ public class Model extends LModel {
         if(!followGameRules()) {
             return;
         }
-        nextPlayerI();
         addCurrentPiece();
         resetCurrentPiece();
+        // FIXME Trouver comment ajouter le joueur qui a terminé à "eliminated"
+        if(nextPlayerI() == -1) {
+            setFinished(true);
+        }
         setChanged();
         notifyObservers();
     }
@@ -371,6 +375,12 @@ public class Model extends LModel {
         playerI++;
         if(playerI > 3)
             playerI = 0;
+        if(eliminated.size() == 4) { // S'ils sont tous "éliminés", le jeu s'arrête
+            return -1;
+        }
+        if(eliminated.contains(playerI)) {
+            return nextPlayerI();
+        }
         return playerI;
     }
 

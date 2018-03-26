@@ -55,6 +55,7 @@ public class Model extends LModel {
     public void restart() throws Exception {
         reset();
         setFinished(false);
+        setScore(0);
     }
 
     public void spawnPiece() {
