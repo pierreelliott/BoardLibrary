@@ -26,7 +26,7 @@ public class Model extends LModel {
     public void start(){
         tprocess = new Thread(() -> {
 //            System.out.println("Thread started !");
-            while(!isFinished()){
+            while(true){
                 if(!pause && !isFinished())
                     play();
                 setChanged();
@@ -50,6 +50,11 @@ public class Model extends LModel {
     public void reset() throws Exception {
         LBoard board = new LBoard(WIDTH,HEIGHT);
         setBoard(board);
+    }
+
+    public void restart() throws Exception {
+        reset();
+        setFinished(false);
     }
 
     public void spawnPiece() {

@@ -2,8 +2,10 @@ package jeu2.view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import jeu2.controller.Controller;
@@ -12,6 +14,7 @@ import jeu2.model.Model;
 import jeu2.model.ModelDeck;
 import mainlib.view.LView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -87,5 +90,14 @@ public class View extends LView {
         setlModel(model);
         setlController(controller);
         setScene(scene);
+    }
+
+    public Pane bottomMenu(Controller controller) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/jeu2/fxml/bottomMenu.fxml"));
+        fxmlLoader.setController(controller);
+        AnchorPane anchorPaneGrid = fxmlLoader.load();
+
+        return anchorPaneGrid;
     }
 }

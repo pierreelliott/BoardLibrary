@@ -3,8 +3,10 @@ package jeu1.controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import jeu1.model.Model;
 import mainlib.model.LModel;
 
 import java.net.URL;
@@ -25,6 +27,9 @@ public class ControllerScore implements Initializable, java.util.Observer {
     @FXML
     Label nextLabelID;
 
+    @FXML
+    Button restartButtonID;
+
     private LModel lModel;
 
     public ControllerScore(LModel lModel){
@@ -35,6 +40,7 @@ public class ControllerScore implements Initializable, java.util.Observer {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         scoreLabelID.setText("Score : " + lModel.getScore());
+        restartButtonID.setOnMouseClicked(event -> restart());
     }
 
     @Override
@@ -46,7 +52,17 @@ public class ControllerScore implements Initializable, java.util.Observer {
             // Exemple of use
             if(lModel.isFinished()){
                 stateLabelID.setText("Game Over !");
+                restartButtonID.setDisable(false);
             }
         });
+    }
+
+    public void restart() {
+        restartButtonID.setDisable(true);
+        try {
+            ((Model)lModel).restart();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
