@@ -109,6 +109,17 @@ public class Model extends LModel {
         pos2.add(new LPosition(4,3));
         pos2.add(new LPosition(4,4));
         getBoard().addPiece(new Piece(pos2, new LPosition(4,3), Color.GREEN, false));
+
+        ArrayList<LPosition> pos3 = new ArrayList<>();
+        pos3.add(new LPosition(4,6));
+        pos3.add(new LPosition(5,6));
+        pos3.add(new LPosition(6,6));
+        getBoard().addPiece(new Piece(pos3, new LPosition(6,7), Color.BLUE, true));
+
+        ArrayList<LPosition> pos4 = new ArrayList<>();
+        pos4.add(new LPosition(3,5));
+        pos4.add(new LPosition(3,6));
+        getBoard().addPiece(new Piece(pos4, new LPosition(6,7), Color.PINK, false));
     }
 
     public LPiece createBorder() {
