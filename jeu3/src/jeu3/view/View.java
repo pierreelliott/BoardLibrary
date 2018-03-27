@@ -27,7 +27,7 @@ public class View extends LView {
         // Génération du model principal
         Model model = new Model();
         // Génération du controleur principal
-        Controller controller = new Controller(model);
+        Controller controller = new Controller(model, this);
 
         /*
             Chargement des composants JavaFXML
@@ -52,5 +52,9 @@ public class View extends LView {
             Démarrage de la partie
          */
         model.start();
+    }
+
+    public boolean gameFinished() {
+        return true;
     }
 }
