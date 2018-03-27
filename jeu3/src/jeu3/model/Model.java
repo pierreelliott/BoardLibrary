@@ -16,40 +16,15 @@ public class Model extends LModel {
     private LPosition finish;
     private LPiece car;
 
-    private int speedTime = 50;
-
-    private Thread tprocess;
-
     public Model() throws Exception {
         reset();
     }
 
     public void start() throws Exception {
+        restart();
         loadLevel();
-        tprocess = new Thread(() -> {
-            System.out.println("Thread started !");
-            while(true){
-                if(isFinished()) {
-                    // Print "Gagné"
-                    System.out.println("Gagné !");
-                    setFinished(false);
-                }
-                setChanged();
-                notifyObservers();
-//                System.out.println("Thread ping !");
-                try {
-                    Thread.sleep(speedTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if(isExit())
-                    break;
-            }
-            System.out.println("##################");
-            System.out.println("# Game finished. #");
-            System.out.println("##################");
-        });
-        tprocess.start();
+        setChanged();
+        notifyObservers();
     }
 
     public void reset() throws Exception {
@@ -91,6 +66,8 @@ public class Model extends LModel {
         if(car.isOnPosition(finish)) {
             setFinished(true);
         }
+        setChanged();
+        notifyObservers();
     }
 
     public void loadLevel() throws Exception {

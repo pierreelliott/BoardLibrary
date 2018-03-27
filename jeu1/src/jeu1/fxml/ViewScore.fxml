@@ -18,7 +18,7 @@
                   <Insets />
                </VBox.margin>
             </ImageView>
-            <Label fx:id="scoreLabelID" text="lol" />
+            <Label fx:id="scoreLabelID" text="" />
             <Label fx:id="stateLabelID" layoutX="10.0" layoutY="77.0" text="Score :" />
             <Label fx:id="nextLabelID" layoutX="10.0" layoutY="94.0" text="Pièce suivante :" />
             <GridPane fx:id="gridNextID">
