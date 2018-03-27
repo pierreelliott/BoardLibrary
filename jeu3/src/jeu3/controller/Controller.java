@@ -24,16 +24,16 @@ public class Controller extends LController {
 //        System.out.println(event.getCode());
         switch (event.getCode()) {
             case DOWN:
-                ((Model) lModel).moveDown();
+                ((Model) lModel).move("DOWN");
                 break;
             case LEFT:
-                ((Model) lModel).moveLeft();
+                ((Model) lModel).move("LEFT");
                 break;
             case RIGHT:
-                ((Model) lModel).moveRight();
+                ((Model) lModel).move("RIGHT");
                 break;
             case UP:
-                ((Model) lModel).moveUp();
+                ((Model) lModel).move("UP");
                 break;
         }
         refresh();

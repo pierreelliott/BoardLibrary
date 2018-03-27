@@ -31,6 +31,8 @@ public class Model extends LModel {
             while(true){
                 if(isFinished()) {
                     // Print "Gagné"
+                    System.out.println("Gagné !");
+                    setFinished(false);
                 }
                 setChanged();
                 notifyObservers();
@@ -65,24 +67,24 @@ public class Model extends LModel {
         setCurrentPiece(getBoard().getPiece(pos));
     }
 
-    public void moveDown() {
+    public void move(String dir) {
         if(!hasCurrentPiece()) return;
-        moveSafely(getCurrentPiece(), GODOWN);
+        moveSafely(getCurrentPiece(), getDir(dir));
+        finishing();
     }
 
-    public void moveRight(){
-        if(!hasCurrentPiece()) return;
-        moveSafely(getCurrentPiece(), GORIGHT);
-    }
-
-    public void moveLeft(){
-        if(!hasCurrentPiece()) return;
-        moveSafely(getCurrentPiece(), GOLEFT);
-    }
-
-    public void moveUp(){
-        if(!hasCurrentPiece()) return;
-        moveSafely(getCurrentPiece(), GOUP);
+    public LPosition getDir(String dir) {
+        switch (dir) {
+            case "DOWN":
+                return GODOWN;
+            case "UP":
+                return GOUP;
+            case "LEFT":
+                return GOLEFT;
+            case "RIGHT":
+                return GORIGHT;
+        }
+        return null;
     }
 
     public void finishing() {
