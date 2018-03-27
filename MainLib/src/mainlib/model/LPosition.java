@@ -84,6 +84,26 @@ public class LPosition implements Cloneable{
     }
 
     /**
+     * Get the approximative direction (considering the LPosition as a vector)
+     * @return <em>1</em> if the direction is only horizontal,
+     *          <em>-1</em> if the direction is only vertical,
+     *          <em>0</em> otherwise
+     */
+    public int direction() {
+        if(posX != 0) {
+            if(posY != 0) {
+                return 0;
+            }
+            return 1;
+        } else {
+            if(posY != 0) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
+    /**
      * X getter
      * @return posX
      */
