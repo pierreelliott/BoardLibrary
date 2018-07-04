@@ -268,12 +268,14 @@ public class Model extends LModel {
         }
         for(LPiece p : pieces) {
             if(p.getColor().equals(colors.get(playerI))) { // FIXME The piece belong to the current player
-//                if(isAdjacentTo(piece, p, 0)){
-                    if(isAdjacentTo(piece, p, -1))
-                    {
-                        count++;
-                    }
-//                }
+                if(isAdjacentTo(piece, p, 1))
+                {
+                    return false;
+                }
+                if(isAdjacentTo(piece, p, -1))
+                {
+                    count++;
+                }
             }
         }
         // Il faut aussi tester qu'elle touche une pièce (càd, qu'elle soit au moins adjacente à une pièce)
